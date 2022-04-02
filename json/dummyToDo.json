@@ -1,0 +1,25 @@
+[{
+        "title":"Test dummy To Do", 
+        "desc":"Created by coolAdmin, assigned to niceGuest, prio 1",
+        "creationDate":"2022-03-11 17:15:39",
+        "createdBy":"coolAdmin",
+        "assignedTo":"niceGuest",
+        "priority":"1"
+    },
+    {
+        "title":"Test dummy To Do 2", 
+        "desc":"Created by coolAdmin, assigned to niceGuest, prio 4",
+        "creationDate":"2022-03-24 12:15:39",
+        "createdBy":"coolAdmin",
+        "assignedTo":"niceGuest",
+        "priority":"4"
+    },
+    {
+        "title":"Test dummy To Do 3", 
+        "desc":"Created by funnyGuest, assigned to funnyGuest, prio 1",
+        "creationDate":"2022-04-02 18:15:39",
+        "createdBy":"funnyGuest",
+        "assignedTo":"funnyGuest",
+        "priority":"1"
+    }
+]

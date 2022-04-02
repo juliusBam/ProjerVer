@@ -1,1 +1,30 @@
 
+[{
+        "uName": "coolAdmin",
+        "email": "admin@projerver.com",
+        "pwd": "bestAdmin",
+        "createdOn": "",
+        "lastLogin": ""
+    },
+    {
+        "uName": "coolGuest",
+        "email": "cGuest@projerver.com",
+        "pwd": "coolestGuest",
+        "createdOn": "",
+        "lastLogin": ""
+    },
+    {
+        "uName": "funnyGuest",
+        "email": "funnyGuest@projerver.com",
+        "pwd": "funniestGuest",
+        "createdOn": "",
+        "lastLogin": ""
+    },
+    {
+        "uName": "niceGuest",
+        "email": "niceGuest@projerver.com",
+        "pwd": "nicestGuest",
+        "createdOn": "",
+        "lastLogin": ""
+    }
+]
