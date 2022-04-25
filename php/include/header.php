@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/myStyle.css" rel="stylesheet">
     <link href="../css/bootstrap.css" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
     <title>ProjerVer</title>
   </head>
   <body>
@@ -17,7 +21,7 @@
         <a class="nav-link" href="#">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Board</a>
+        <a class="nav-link" href="todo.php">Board</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Chat</a>
