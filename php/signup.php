@@ -17,7 +17,7 @@
         <div class="container pt-3 w-50">
         <div class="index-login-signup">
             <h4 class="text-center">Sign Up</h4>
-            <form action="includes/signup.inc.php" method="post">
+            <form action="include/signup.inc.php" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label text-left">Username</label>
                     <input type="text" id="userame" class="form-control" name="uid" placeholder="Please enter a username">
@@ -35,7 +35,7 @@
                     <input type="email"  id="email" class="form-control" name="email" placeholder="email@example.com">
                 </div>
                 <div class="mb-3">
-                    <button type="submit"   id="btnSumbit" onclick="" class="form-control btn btn-outline-success" name="submit">Sign up!</button>
+                    <button type="submit"   id="btnSumbit" onclick="test()" class="form-control btn btn-outline-success" name="submit">Sign up!</button>
                 </div>
 
             </form>
