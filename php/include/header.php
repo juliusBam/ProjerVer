@@ -7,7 +7,7 @@
     <link href="../css/myStyle.css" rel="stylesheet">
     <link href="../css/bootstrap.css" rel="stylesheet">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <title>ProjerVer</title>
@@ -18,7 +18,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mt-2">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home</a>
+        <a class="nav-link" href="index.php">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="todo.php">Board</a>
