@@ -59,4 +59,6 @@
     } else {
         response("GET", 200, $result);
     }
+
+    if(isset($_POST[]))
 ?>
