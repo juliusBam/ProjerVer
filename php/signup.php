@@ -20,15 +20,15 @@
             <form action="includes/signup.inc.php" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label text-left">Username</label>
-                    <input type="text" id="userame" class="form-control" name="uid" placeholder="Please enter a Username">
+                    <input type="text" id="userame" class="form-control" name="uid" placeholder="Please enter a username">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password"  id="password" class="form-control" name="pwd" placeholder="Please enter a Password">
+                    <input type="password"  id="password" class="form-control" name="pwd" placeholder="Please enter a password">
                 </div>
                 <div class="mb-3">
                     <label for="passwordRepetition" class="form-label">Repeat Passoword</label>
-                    <input type="password"  id="passwordRepetition" class="form-control" name="pwdrepeat" placeholder="Please repeat the Password">
+                    <input type="password"  id="passwordRepetition" class="form-control" name="pwdrepeat" placeholder="Please repeat your password">
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">E-Mail</label>
