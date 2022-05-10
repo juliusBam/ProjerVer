@@ -27,6 +27,7 @@ function createTodo()
         listItem.setAttribute("class", "list-group-item");
         listItem.innerHTML = task;
         document.getElementById("personalList").appendChild(listItem);
+        $("#divCreateTodo").fadeOut();
     }
 }
 function addList() {
