@@ -20,8 +20,6 @@ if(isset($_POST["submit"]))
 
     $data = json_decode(file_get_contents('../../json/dummyLogin.json'), true);
 
-    //print_r($data);
-
     $temp = True;
     for ($x = 0; $x < count($data); $x++) {
         if($uid==$data[$x]["uName"])
@@ -53,7 +51,7 @@ if(isset($_POST["submit"]))
 		$final_data = json_encode($data);
 		if(file_put_contents('../../json/dummyLogin.json', $final_data))
         {
-            $message = "<label class='text-success'>File createed and  data added Success fully</p>";
+            echo "User added successfully\n";
         }
     }
 
