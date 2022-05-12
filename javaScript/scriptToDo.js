@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    $( "#personalList" ).sortable();
+    $( "#externalList" ).sortable();
+    $("#divCreateTodo").hide();
     $("#listContainer").sortable();
     $("#btnHide").removeClass("hiddenBtn");
     $(document).on("click", "#submitList", addList);
@@ -10,8 +13,23 @@ $(document).ready(function(){
     $(document).on("click", "#loadList", loadList);
     $(document).on("click", "#saveList", saveList);
 });
-
-
+//
+function showCreateTodo()
+{
+    $("#divCreateTodo").fadeIn();
+}
+function createTodo()
+{
+    let task = $("#taskInput").val();
+    if(task!="")
+    {
+        var listItem = document.createElement("li");
+        listItem.setAttribute("class", "list-group-item");
+        listItem.innerHTML = task;
+        document.getElementById("personalList").appendChild(listItem);
+        $("#divCreateTodo").fadeOut();
+    }
+}
 function addList() {
     let inputs = [];
     let inputsVal = true;
