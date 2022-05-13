@@ -19,7 +19,7 @@
         }
     }
 
-    $param;
+    $param = array();
     $action = (isset($_GET["requesting"])) ? $_GET["requesting"] : false;
 
     if (isset($_GET["neededParam"]) && $_GET["neededParam"] == "y") {
@@ -32,6 +32,11 @@
     if ($action && !empty($param)) {
         switch ($action) {
             case "getPostsByUserID":
+                $resultSet = new ResultSet();
+                $result = $resultSet->getAllPostsUser($param["id"]);
+                unset($resultSet);
+                break;
+            case "getPostsForUserID":
                 $resultSet = new ResultSet();
                 $result = $resultSet->getAllPostsUser($param["id"]);
                 unset($resultSet);
