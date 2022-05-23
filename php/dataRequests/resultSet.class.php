@@ -18,7 +18,7 @@
             $result;
             //the objects are created with the same id
             foreach ($fileConentJson as $key => $value) {
-               $result[$key] = new PostIt(1, $value->title, $value->desc, $value->creationDate,
+               $result[$key] = new PostIt(1, $value->title, $value->desc, $value->creationDate, "Deadline",
                                             $value->createdBy, $value->assignedTo, $value->priority);
             }
 
@@ -48,7 +48,7 @@
 
         public function getAllPostsUser($uName) {
 
-            //WILL become a SQL
+            //WILL become a SQL-->db Class
 
             $fileContent = file_get_contents("../../json/dummyToDo.json");
             $fileConentJson = json_decode($fileContent);
@@ -57,6 +57,26 @@
             //the objects are created with the same id
             foreach ($fileConentJson as $key => $value) {
                 if ($value->createdBy == $uName) {
+                    $result[$key] = new PostIt(1, $value->title, $value->desc, $value->creationDate,
+                                        $value->createdBy, $value->assignedTo, $value->priority);
+                }
+            }
+
+            return $result;
+
+        }
+
+        public function getAllPostsForUser($uName) {
+
+            //WILL become a SQL-->db Class
+
+            $fileContent = file_get_contents("../../json/dummyToDo.json");
+            $fileConentJson = json_decode($fileContent);
+            //var_dump($fileConentJson);
+            $result;
+            //the objects are created with the same id
+            foreach ($fileConentJson as $key => $value) {
+                if ($value->assignedTo == $uName) {
                     $result[$key] = new PostIt(1, $value->title, $value->desc, $value->creationDate,
                                         $value->createdBy, $value->assignedTo, $value->priority);
                 }
