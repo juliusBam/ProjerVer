@@ -1,0 +1,7 @@
+[
+    {"uName":"coolAdmin","email":"admin@projerver.com","pwd":"bestAdmin","type":"admin","createdOn":"2022-02-11 17:15:39","lastLogin":""},
+    {"uName":"coolGuest","email":"cGuest@projerver.com","pwd":"coolestGuest","type":"worker","createdOn":"2022-02-12 17:15:39","lastLogin":""},
+    {"uName":"funnyGuest","email":"funnyGuest@projerver.com","pwd":"funniestGuest","type":"worker","createdOn":"2022-02-13 17:15:39","lastLogin":""},
+    {"uName":"niceGuest","email":"niceGuest@projerver.com","pwd":"nicestGuest","type":"guest","createdOn":"2022-03-01 17:15:39","lastLogin":""},
+    {"uName":"coolGuest2","email":"admin@projerver.coms","pwd":"asd","type":"guest","createdOn":"2022-04-25  22:50:11","lastLogin":""},
+    {"uName":"Test","email":"etst@projerver.coms","pwd":"asd","type":"guest","createdOn":"2022-04-25  22:51:11","lastLogin":""}]
