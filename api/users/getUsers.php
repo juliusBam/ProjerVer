@@ -2,6 +2,7 @@
 
 //TODO update the post it class to contain all the needed information
 //TODO update the user class with the role id
+//TODO check session in order to block some API based upon the user status
 //as well as the constructor
 
 $dirUp = dirname(__DIR__, 2);
