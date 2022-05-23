@@ -2,6 +2,9 @@ $(document).ready(function(){
     $( "#personalList" ).sortable();
     $( "#externalList" ).sortable();
     $("#divCreateTodo").hide();
+    loadInitialData();
+
+    //------- alex's old Code ??
     $("#listContainer").sortable();
     $("#btnHide").removeClass("hiddenBtn");
     $(document).on("click", "#submitList", addList);
@@ -30,6 +33,36 @@ function createTodo()
         $("#divCreateTodo").fadeOut();
     }
 }
+
+function loadInitialData()
+{
+    $.ajax({
+          'url': '../api/todo/postIt.php',
+          'type': 'GET',
+          'cache': false,
+          'dataType': 'json',
+      })
+      .done( function (response) {
+
+            for(var i=0; i<response.length;i++)
+            {
+                var listItem = document.createElement("li");
+                listItem.setAttribute("class", "list-group-item");
+                listItem.innerHTML = response[i].title;
+                if(response[i].createdBy == response[i].assignedTo)
+                {
+                    document.getElementById("personalList").appendChild(listItem);
+                }
+                else{
+                    document.getElementById("externalList").appendChild(listItem);
+                }
+
+            }
+      })
+}
+
+
+//------- alex's old Code ??
 function addList() {
     let inputs = [];
     let inputsVal = true;
