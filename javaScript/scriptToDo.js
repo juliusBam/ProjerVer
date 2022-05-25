@@ -12,25 +12,76 @@ $(document).ready(function(){
     $(document).on("click", "#inputTitle", hideErrorsTit);
     $(document).on("click", "#inputDesc", hideErrorsDesc);
     $(document).on("click", "#inputPriority", hideErrorsPriority);
-    $(document).on("click", "button#btnHide", hideList);
-    $(document).on("click", "#loadList", loadList);
-    $(document).on("click", "#saveList", saveList);
+    //$(document).on("click", "button#btnHide", hideList);
+    //$(document).on("click", "#loadList", loadList);
+    //$(document).on("click", "#saveList", saveList);
 });
 //
 function showCreateTodo()
 {
+    $(".errorInputs").hide();
     $("#divCreateTodo").fadeIn();
 }
 function createTodo()
 {
-    let task = $("#taskInput").val();
-    if(task!="")
-    {
-        var listItem = document.createElement("li");
-        listItem.setAttribute("class", "list-group-item");
-        listItem.innerHTML = task;
-        document.getElementById("personalList").appendChild(listItem);
-        $("#divCreateTodo").fadeOut();
+    let inputVal = [false, false, false, false, false];
+
+    $(".errorInputs").fadeOut();
+
+    let title = $("#titleInput").val();
+    let priority = $("#priorityInput option:selected").val();
+    let assignedTo = $("#assignInput option:selected").val();
+    let descr = $("#descriptionInput").val();
+    let deadlineDate = $("#deadlineDate").val();
+    let deadlineTime = $("#deadlineTime").val();
+    let dateToSend;
+    if (title == "" || title == null) {
+        $("#errorTitle").fadeIn();
+    } else {
+        inputVal[0] = true;
+    }
+    if (priority == 0 || priority == "" || priority == null) {
+        $("#errorPriority").fadeIn();
+    } else {
+        inputVal[1] = true;
+    }
+    if (assignedTo == "" || assignedTo == null || assignedTo == 0) {
+        $("#errorUser").fadeIn();
+    } else {
+        inputVal[2] = true;
+    }
+    if (descr == "" || descr == null) {
+        $("#errorDescr").fadeIn();
+    } else {
+        inputVal[3] = true;
+    }
+    if (deadlineDate == "" || deadlineDate == null) {
+        $("#errorDeadlineDate").fadeIn();
+    } else {
+        if (deadlineTime == "" || deadlineTime == null) {
+            $("#errorDeadlineTime").fadeIn();
+        } else {
+            if (new Date() < new Date(deadlineDate)) {
+                deadlineTime += ":00";
+                dateToSend = deadlineDate + deadlineTime;
+                inputVal[4] = true;
+            } else {
+                $("#errorDeadlinePast").fadeIn();
+            }
+            //let dateToCheck = new DateTim();
+        }
+    }
+    let goOn = true;
+    for (var i = 0; i < inputVal.length; ++i) {
+        if (inputVal[i] == false) {
+            goOn = false;
+            break;
+        }
+    }
+    if (goOn) {
+        alert("Sending to server");
+    } else {
+        $("#errorForm").fadeIn();
     }
 }
 
@@ -43,6 +94,7 @@ function loadInitialData()
           'dataType': 'json',
       })
       .done( function (response) {
+          console.log(response);
 
             for(var i=0; i<response.length;i++)
             {
@@ -121,19 +173,6 @@ function hideList() {
         $(this).text("Hide list");
     }
 }
-
-/*
-function loadList() {
-    //ajax call to get the data
-    $.get("php/getList.php", function(result){
-        purgeList();//has to be before the loop
-        $(result).each(function(index, element){
-            appendToList(element, "phpAdded");
-            hideList();
-        });
-    })
-}
-*/
 
 
 function appendToList(arrayInputs, newClass) {

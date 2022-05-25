@@ -25,10 +25,29 @@ catch(PDOException $e) {
     response("GET", 400, "DB connection problem");
 }
 
+if ($neededId != false) {
 
-    $query = $db->prepare("SELECT * FROM postit ");
-    
+} else {
+
+    //$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+
+    $query = $db->prepare("SELECT postIt_ID, title, descr, createdBy_userID, users.userName as creatorName, 
+                                    assignedTo_userID, u1.userName as assignedName, 
+                                    priorities.priorityLabel as prioLabel, 
+                                    deadline, postIt.creationTimeStamp as postTimeStamp, fk_priorityID
+	                        FROM `postIt` 
+                                JOIN
+                                    users on postIt.createdBy_userID = users.userID
+                                JOIN
+                                    users u1 on postIt.assignedTo_userID = u1.userID
+                                JOIN
+                                    priorities on postIt.fk_priorityID = priorities.priorityID;");
+
     $query->execute();
+
+    //print_r($query->errorInfo());
+
+
     $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
 
     if (count($queryRes) > 0) {
@@ -39,9 +58,9 @@ catch(PDOException $e) {
         foreach($queryRes as $row) {
 
             array_push($resultSet,new PostIt($row["postIt_ID"], $row["title"], $row["descr"],
-                                                    $row["creationTimeStamp"], $row["deadline"], $row["createdBy_userID"],
-                                                    $row["createdBy_userID"], $row["assignedTo_userID"], $row["assignedTo_userID"],
-                                                    $row["fk_priorityID"],$row["fk_priorityID"]));
+                                                    $row["postTimeStamp"], $row["deadline"], $row["createdBy_userID"],
+                                                    $row["creatorName"], $row["assignedTo_userID"], $row["assignedName"],
+                                                    $row["fk_priorityID"],$row["prioLabel"]));
                                                     
         }
     }
@@ -52,7 +71,7 @@ catch(PDOException $e) {
 
     }
 
-
+}
 
 switch ($resultSet) {
 

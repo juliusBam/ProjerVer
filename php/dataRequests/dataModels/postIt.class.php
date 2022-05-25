@@ -26,7 +26,7 @@
             $this->createdByName = $newCreatorName;
             $this->assignedTo = $newAssigned;
             $this->assignedToName = $newAssignedName;
-            $this->priority = $newPrio;
+            $this->priorityID = $newPrio;
             $this->priorityLabel = $newPrioLabel;
 
         }
