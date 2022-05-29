@@ -17,40 +17,48 @@ $(document).ready(function(){
     //$(document).on("click", "#saveList", saveList);
 });
 //
-function showCreateTodo()
-{
+function showCreateTodo() {
     $(".errorInputs").hide();
+    //TODO fetch the differents priorities for the dropdown
+    //fetches the users and populates the select with them
+    populateUsers($("#assignInput"));
     $("#divCreateTodo").fadeIn();
 }
-function createTodo()
-{
+function createTodo() {
+
+    //InputVal will be used to check if every input is considered as valid, if yes
+    //the data will be sent to the server
     let inputVal = [false, false, false, false, false];
 
     $(".errorInputs").fadeOut();
-
-    let title = $("#titleInput").val();
-    let priority = $("#priorityInput option:selected").val();
-    let assignedTo = $("#assignInput option:selected").val();
-    let descr = $("#descriptionInput").val();
+    let inputArray = new Array();
+    //inputArray contains the inputs incapsulated, in order to send them to the postPostIt API
+    inputArray[0] = $("#titleInput").val();
+    inputArray[1] = $("#priorityInput option:selected").val();
+    inputArray[2] = $("#assignInput option:selected").val();
+    inputArray[3] = $("#descriptionInput").val();
+    //Deadline date and deadline time are separated inputs in order to check the 
+    //picked date more easily
     let deadlineDate = $("#deadlineDate").val();
     let deadlineTime = $("#deadlineTime").val();
-    let dateToSend;
-    if (title == "" || title == null) {
+
+    //Validations of all user's input
+    if (inputArray[0] == "" || inputArray[0] == null) {
         $("#errorTitle").fadeIn();
     } else {
         inputVal[0] = true;
     }
-    if (priority == 0 || priority == "" || priority == null) {
+    if (inputArray[1] == 0 || inputArray[1] == "" || inputArray[1] == null) {
         $("#errorPriority").fadeIn();
     } else {
         inputVal[1] = true;
     }
-    if (assignedTo == "" || assignedTo == null || assignedTo == 0) {
+    if (inputArray[2] == "" || inputArray[2] == null || inputArray[2] == 0) {
         $("#errorUser").fadeIn();
     } else {
         inputVal[2] = true;
     }
-    if (descr == "" || descr == null) {
+    if (inputArray[3] == "" || inputArray[3] == null) {
         $("#errorDescr").fadeIn();
     } else {
         inputVal[3] = true;
@@ -63,7 +71,7 @@ function createTodo()
         } else {
             if (new Date() < new Date(deadlineDate)) {
                 deadlineTime += ":00";
-                dateToSend = deadlineDate + deadlineTime;
+                inputArray[4] = deadlineDate + " " + deadlineTime;
                 inputVal[4] = true;
             } else {
                 $("#errorDeadlinePast").fadeIn();
@@ -71,6 +79,8 @@ function createTodo()
             //let dateToCheck = new DateTim();
         }
     }
+
+    //goOn is used as check
     let goOn = true;
     for (var i = 0; i < inputVal.length; ++i) {
         if (inputVal[i] == false) {
@@ -78,8 +88,11 @@ function createTodo()
             break;
         }
     }
+
+    //if inputs are okkey, send to server
     if (goOn) {
-        alert("Sending to server");
+        //alert("Sending to server");
+        console.log(inputArray);
     } else {
         $("#errorForm").fadeIn();
     }
@@ -88,13 +101,13 @@ function createTodo()
 function loadInitialData()
 {
     $.ajax({
-          'url': '../api/todo/postIt.php',
+          'url': '../api/todo/getPostIt.php',
           'type': 'GET',
           'cache': false,
           'dataType': 'json',
       })
       .done( function (response) {
-          console.log(response);
+          //console.log(response);
 
             for(var i=0; i<response.length;i++)
             {
@@ -211,6 +224,31 @@ function appendToList(arrayInputs, newClass) {
 
 function purgeList() {
     $("#listContainer > .phpAdded").remove();
+}
+
+function postPostIt(dataToSend) {
+
+}
+
+function populateUsers(selectToAppendTo) {
+    $.ajax({
+        'url': '../api/users/getUsers.php?',
+        'type': 'GET',
+        'cache': false,
+        'dataType': 'json',
+    })
+    .done( function (response) {
+        for(var i=0; i<response.length;i++) {
+            let newOption = $("<option>");
+            newOption.val(response[i].uID);
+            newOption.html(response[i].uName + " | " + response[i].firstName + " " + response[i].secondName);
+            selectToAppendTo.append(newOption);
+        }
+    })
+    .fail( function (errorThrown, response) {
+        //TODO add an error reporting
+        alert(errorThrown + "\n" + response);
+    })
 }
 /*
 function saveList() {

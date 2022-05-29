@@ -54,7 +54,7 @@ if ($neededId && $neededPwd) {
 
     if ($queryRes != null) {
 
-        $resultSet = new UserData($queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
+        $resultSet = new UserData($queryRes["userID"], $queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
                                     $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
                                     $queryRes["roleLabel"], $queryRes["creationTimeStamp"]);
 
@@ -62,7 +62,7 @@ if ($neededId && $neededPwd) {
 
     if ($resultSet == null) {
 
-        $resultSet = "Wrong inputs";
+        $resultSet = "wrongPass";
     
     }
 
@@ -83,7 +83,7 @@ if ($neededId && $neededPwd) {
 
     if ($queryRes != null) {
 
-        $resultSet = new UserData($queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
+        $resultSet = new UserData($queryRes["userID"], $queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
                                     $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
                                     $queryRes["roleLabel"], $queryRes["creationTimeStamp"]);
 
@@ -91,7 +91,7 @@ if ($neededId && $neededPwd) {
 
     if ($resultSet == null) {
 
-        $resultSet = "User not found";
+        $resultSet = "noUser";
 
     }
 
@@ -113,7 +113,7 @@ if ($neededId && $neededPwd) {
 
         foreach($queryRes as $row) {
 
-            array_push($resultSet,new UserData($row["userName"], $row["firstName"], $row["secondName"],
+            array_push($resultSet,new UserData($queryRes["userID"], $row["userName"], $row["firstName"], $row["secondName"],
                                                     $row["gender"], $row["birthdate"], $row["userEmail"],
                                                     $row["roleLabel"], $row["creationTimeStamp"]));
                                                     
@@ -122,7 +122,7 @@ if ($neededId && $neededPwd) {
 
     if ($resultSet == null) {
 
-        $resultSet = "User not found";
+        $resultSet = "noUser";
 
     }
 
@@ -131,16 +131,16 @@ if ($neededId && $neededPwd) {
 switch ($resultSet) {
 
     case "wrongPass":
-        response("GET", 200, "Wrong password");
+        response("GET", 400, "Wrong password");
         break;
     case "noUser":
-        response("GET", 200, "User not found");
+        response("GET", 400, "User not found");
         break;
     case false:
         response("GET", 400, "An error occoured");
         break;
     case null:
-        response("GET", 200, "Empty");
+        response("GET", 400, "Empty");
     default:
         response("GET", 200, $resultSet);
 }

@@ -53,7 +53,6 @@
                 <div class="col-4">
                     <select type="text" class="form-control" name="assignTo" id="assignInput" aria-describedby="TaskInput">
                         <option value="0">Please choose a user</option>
-                        <option value="1">Me</option>
                     </select>
                     <small id="errorUser" class="text-danger errorInputs">Please choose a user</small>
                 </div>
