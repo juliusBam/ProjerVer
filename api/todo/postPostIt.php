@@ -26,6 +26,7 @@ include_once "../apiFunctions.php";
 
         (isset($_POST["descr"]) && isValidString($_POST["descr"])) ? $newDescription = $_POST["descr"] : response("GET", 400, "Bad description");
 
+        //NOT WORKING! ##################################
         (isset($_POST["deadline"]) && isValidTimeStamp($_POST["deadline"])) ? $newDeadline = $_POST["deadline"] : response("GET", 400, "Bad deadline");
 
         response("GET", 200, "Okkey");

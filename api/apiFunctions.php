@@ -21,6 +21,8 @@ function isValidString($var) {
     return ($var != "" && $var != null && !empty($var));
 }
 
+//NOT WORKING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//##################################
 function isValidTimeStamp($var) {
     $d = new DateTime($var, new DateTimeZone("UTC"));
     //$d = DateTime::createFromFormat("Y-M-D HH:mm:ss", $var);
