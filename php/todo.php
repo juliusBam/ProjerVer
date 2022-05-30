@@ -1,23 +1,26 @@
-<?php include('../php/include/header.php')?>  
+<?php include('../php/include/header.php')?>
+    <script src="../javaScript/functionsToDo.js" type="text/javascript"></script>
     <script src="../javaScript/scriptToDo.js" type="text/javascript"></script>
     <h3 class="text-center pt-5">Board</h3>
     <div class="container">
-        <div class="row bg-light p-4">
-            <div class="col">
-                <h3>Personal List:</h3>
-                <ul class="list-group" id="personalList">
-                </ul>
-            </div>
-            <div class="col">
-                <h3>External List:</h3>
-                <ul class="list-group" id="externalList">
-                </ul>
+        <div id="listContainer">
+            <div class="row bg-light p-4">
+                <div class="col">
+                    <h3>Personal List:</h3>
+                    <ul class="list-group" id="personalList">
+                    </ul>
+                </div>
+                <div class="col">
+                    <h3>External List:</h3>
+                    <ul class="list-group" id="externalList">
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="row text-center p-2">
             <div class="col">
-                <!--<button class="btn btn-outline-secondary hiddenBtn" id="btnHide">Hide list</button>
-                <button class="btn btn-outline-info" id="loadList">Load list from file</button>
+                <button class="btn btn-outline-secondary hiddenBtn" id="btnHide">Hide list</button>
+                <!--<button class="btn btn-outline-info" id="loadList">Load list from file</button>
                 <button class="btn btn-outline-success" id="saveList">Save list into file</button>-->
                 <button class="btn btn-outline-success" id="createTodo" onclick="showCreateTodo()">Create new ToDo</button>
                 <ol class="list-group" id="listContainer">
