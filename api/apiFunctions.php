@@ -13,4 +13,19 @@ function response($method, $httpStatus, $data) {
     }
 }
 
+function isValidID($var) {
+    return ($var != "" && is_numeric($var) && $var != 0 && $var != "0" && $var != null && !empty($var));
+}
+
+function isValidString($var) {
+    return ($var != "" && $var != null && !empty($var));
+}
+
+function isValidTimeStamp($var) {
+    $d = new DateTime($var, new DateTimeZone("UTC"));
+    //$d = DateTime::createFromFormat("Y-M-D HH:mm:ss", $var);
+    die($d);
+    return $d && $d->format("Y-m-d H:i:s") == $var;
+}
+
 ?>

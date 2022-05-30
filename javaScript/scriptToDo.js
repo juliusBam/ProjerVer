@@ -16,6 +16,4 @@ $(document).ready(function(){
     $(document).on("click", "#inputDesc", hideErrorsDesc);
     $(document).on("click", "#inputPriority", hideErrorsPriority);
     $(document).on("click", "#btnHide", hideList);
-    //$(document).on("click", "#loadList", loadList);
-    //$(document).on("click", "#saveList", saveList);
 });
