@@ -22,6 +22,7 @@ function showCreateTodo() {
     //TODO fetch the differents priorities for the dropdown
     //fetches the users and populates the select with them
     populateUsers($("#assignInput"));
+    populatePrios($("#priorityInput"));
     $("#divCreateTodo").fadeIn();
 }
 function createTodo() {
@@ -232,7 +233,7 @@ function postPostIt(dataToSend) {
 
 function populateUsers(selectToAppendTo) {
     $.ajax({
-        'url': '../api/users/getUsers.php?',
+        'url': '../api/users/getUsers.php',
         'type': 'GET',
         'cache': false,
         'dataType': 'json',
@@ -242,6 +243,29 @@ function populateUsers(selectToAppendTo) {
             let newOption = $("<option>");
             newOption.val(response[i].uID);
             newOption.html(response[i].uName + " | " + response[i].firstName + " " + response[i].secondName);
+            selectToAppendTo.append(newOption);
+        }
+    })
+    .fail( function (errorThrown, response) {
+        //TODO add an error reporting
+        alert(errorThrown + "\n" + response);
+    })
+}
+
+
+function populatePrios(selectToAppendTo) {
+    $.ajax({
+        'url': '../api/priorities/getPriorities.php',
+        'type': 'GET',
+        'cache': false,
+        'dataType': 'json',
+    })
+    .done( function (response) {
+        console.log(response.length);
+        for(var i=0; i<response.length;i++) {
+            let newOption = $("<option>");
+            newOption.val(response[i].id);
+            newOption.html(response[i].label);
             selectToAppendTo.append(newOption);
         }
     })

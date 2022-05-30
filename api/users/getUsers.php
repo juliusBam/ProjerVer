@@ -113,7 +113,7 @@ if ($neededId && $neededPwd) {
 
         foreach($queryRes as $row) {
 
-            array_push($resultSet,new UserData($queryRes["userID"], $row["userName"], $row["firstName"], $row["secondName"],
+            array_push($resultSet,new UserData($row["userID"], $row["userName"], $row["firstName"], $row["secondName"],
                                                     $row["gender"], $row["birthdate"], $row["userEmail"],
                                                     $row["roleLabel"], $row["creationTimeStamp"]));
                                                     

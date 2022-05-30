@@ -41,7 +41,6 @@
                 <div class="col-4">
                     <select class="form-control" id="priorityInput" name="priority" aria-describedby="TaskInput" placeholder="Select Priority for the Task">
                         <option value="0">Please choose a priority level</option>
-                        <option value="1">Urgent</option>
                     </select>
                     <small id="errorPriority" class="text-danger errorInputs">Please choose a priority</small>
                 </div>
