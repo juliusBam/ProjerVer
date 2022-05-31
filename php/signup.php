@@ -20,7 +20,7 @@
             <form action="include/signup.inc.php" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label text-left">Username</label>
-                    <input type="text" id="userame" class="form-control" name="uid" placeholder="Please enter a username">
+                    <input type="text" id="username" class="form-control" name="uid" placeholder="Please enter a username">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
