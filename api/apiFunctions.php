@@ -10,7 +10,9 @@ function response($method, $httpStatus, $data) {
         default:
             http_response_code(405);
             echo ("Method not supported");
+            break;
     }
+    exit();
 }
 
 function isValidID($var) {
@@ -21,13 +23,12 @@ function isValidString($var) {
     return ($var != "" && $var != null && !empty($var));
 }
 
-//NOT WORKING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//##################################
 function isValidTimeStamp($var) {
-    $d = new DateTime($var, new DateTimeZone("UTC"));
-    //$d = DateTime::createFromFormat("Y-M-D HH:mm:ss", $var);
-    die($d);
-    return $d && $d->format("Y-m-d H:i:s") == $var;
+    $d = new DateTime($var);
+    $timeStamp = new DateTime();
+    $timeStamp->format("Y-m-d H:i:s");
+    return ($d && $d > $timeStamp);
+    //die($d && $d->format("Y-m-d H:i:s") == $var);
 }
 
 ?>

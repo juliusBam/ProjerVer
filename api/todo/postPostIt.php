@@ -16,7 +16,7 @@ include_once "../apiFunctions.php";
         $newDeadline;
         
         //check the post of the vars
-        (isset($_POST["createdBy"]) && isValidID($_POST["createdBy"])) ? $newCreator = $_POST["username"] : response("GET", 400, "Bad user");
+        (isset($_POST["createdBy"]) && isValidID($_POST["createdBy"])) ? $newCreator = $_POST["createdBy"] : response("GET", 400, "Bad user");
   
         (isset($_POST["title"]) && isValidString($_POST["title"])) ? $newTitle = $_POST["title"] : response("GET", 400, "Bad title");
 
@@ -26,10 +26,44 @@ include_once "../apiFunctions.php";
 
         (isset($_POST["descr"]) && isValidString($_POST["descr"])) ? $newDescription = $_POST["descr"] : response("GET", 400, "Bad description");
 
-        //NOT WORKING! ##################################
         (isset($_POST["deadline"]) && isValidTimeStamp($_POST["deadline"])) ? $newDeadline = $_POST["deadline"] : response("GET", 400, "Bad deadline");
 
-        response("GET", 200, "Okkey");
+        //since the response function ends the script we reach this part only if all the inputs are valid
+
+        //connects to db
+        try {
+            $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
+        }
+        catch(PDOException $e) {
+            response("GET", 400, "DB connection problem");
+        }
+
+        $sql = "INSERT INTO postIt
+                    (title, descr, createdBy_userID, assignedTo_userID, fk_priorityID, deadline)
+                    VALUES
+                        (:newTitle, :newDescr, :newCreator, :newAssigned, :newPrio, :newDeadline)";
+        try {
+
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindParam("newTitle", $newTitle, PDO::PARAM_STR);
+            $stmt->bindParam("newDescr", $newDescription, PDO::PARAM_STR);
+            $stmt->bindParam("newCreator", $newCreator, PDO::PARAM_INT);
+            $stmt->bindParam("newAssigned", $newAssigned, PDO::PARAM_INT);
+            $stmt->bindParam("newPrio", $newPriority, PDO::PARAM_INT);
+            $stmt->bindParam("newDeadline", $newDeadline, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            response("GET", 200, "Success");
+
+        } catch (\Throwable $th) {
+
+            response("GET", 400, $th);
+
+        }
+
+
     } else {
         response("GET", 400, "Bad request");
     }
