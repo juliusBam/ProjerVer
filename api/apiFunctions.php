@@ -20,6 +20,7 @@ function isValidID($var) {
 }
 
 function isValidString($var) {
+    //die($var);
     return ($var != "" && $var != null && !empty($var));
 }
 
