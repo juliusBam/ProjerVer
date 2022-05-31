@@ -6,7 +6,6 @@ $(document).ready(function(){
     $( "#externalList" ).sortable();
     $("#divCreateTodo").hide();
     loadInitialData();
-
     //------- alex's old Code ??
 
     $("#listContainer").sortable();

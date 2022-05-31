@@ -1,6 +1,7 @@
 <?php
 
     class Priority{
+        
         public $id;
         public $label;
 
@@ -10,6 +11,7 @@
             $this->label = $newLabel;
 
         }
+
     }
 
 ?>

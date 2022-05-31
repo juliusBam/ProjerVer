@@ -1,5 +1,6 @@
 //alert("script");
-
+//TODO add error message
+//TODO add success message
 function showCreateTodo() {
     $(".errorInputs").hide();
     //fetches the users and populates the select with them
@@ -76,7 +77,7 @@ function createTodo() {
     //if inputs are okkey, send to server
     if (goOn) {
         //alert("Sending to server");
-        console.log(inputArray);
+        postPostIt(inputArray);
     } else {
         $("#errorForm").fadeIn();
     }
@@ -174,11 +175,33 @@ function appendToList(arrayInputs, newClass) {
 }
 
 function purgeList() {
-    $("#listContainer > .phpAdded").remove();
+    $("#personalList > .list-group-item").remove();
+    $("#externalList > .list-group-item").remove();
 }
 
 function postPostIt(dataToSend) {
-
+    //data to send is the array
+    $.ajax({
+        'url': '../api/todo/postPostIt.php',
+        'type': 'POST',
+        data: {
+            //createdBy: session["uID"],
+            createdBy: 1,
+            title: dataToSend[0],
+            priority: dataToSend[1],
+            assignedTo: dataToSend[2],
+            descr: dataToSend[3],
+            deadline: dataToSend[4]
+        }
+    }).done(function (response) {
+        console.log(response);
+        //purge lists
+        purgeList();
+        //loads the data from db
+        loadInitialData();
+    }).fail(function (response){
+        console.log(response);
+    });
 }
 
 function populateUsers(selectToAppendTo) {
@@ -199,7 +222,7 @@ function populateUsers(selectToAppendTo) {
     .fail( function (errorThrown, response) {
         //TODO add an error reporting
         alert(errorThrown + "\n" + response);
-    })
+    });
 }
 
 function populatePrios(selectToAppendTo) {
@@ -210,7 +233,7 @@ function populatePrios(selectToAppendTo) {
         'dataType': 'json',
     })
     .done( function (response) {
-        console.log(response.length);
+        //console.log(response.length);
         for(var i=0; i<response.length;i++) {
             let newOption = $("<option>");
             newOption.val(response[i].id);
@@ -221,5 +244,5 @@ function populatePrios(selectToAppendTo) {
     .fail( function (errorThrown, response) {
         //TODO add an error reporting
         alert(errorThrown + "\n" + response);
-    })
+    });
 }
