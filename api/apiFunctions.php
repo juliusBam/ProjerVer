@@ -32,4 +32,18 @@ function isValidTimeStamp($var) {
     //die($d && $d->format("Y-m-d H:i:s") == $var);
 }
 
+function appendPostIt($queryOutput) {
+    $resultSet = array();
+    foreach($queryOutput as $row) {
+
+        array_push($resultSet,new PostIt($row["postIt_ID"], $row["title"], $row["descr"],
+                                                $row["postTimeStamp"], $row["deadline"], $row["createdBy_userID"],
+                                                $row["creatorName"], $row["assignedTo_userID"], $row["assignedName"],
+                                                $row["fk_priorityID"],$row["prioLabel"]));
+                                                
+    }
+
+    return $resultSet;
+}
+
 ?>
