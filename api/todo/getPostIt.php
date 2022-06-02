@@ -12,11 +12,15 @@ $dbClass = $dirUp."/php/classes/dbh.classes.php";
 include_once($userClass);
 include_once("../apiFunctions.php");
 
-$neededId = false;
+$postID = false;
+$assignedID = false;
+$creatorID = false;
 
 $resultSet = null;
 
-(isset($_GET["id"]) && $_GET["id"] != "") ? $neededId = $_GET["id"] : $neededId = false;
+(isset($_GET["postID"]) && isValidID($_GET["postID"])) ? $postID = $_GET["postID"] : $postID = false;
+(isset($_GET["assignedID"]) && isValidID($_GET["assignedID"])) ? $neededId = $_GET["assignedID"] : $neededId = false;
+(isset($_GET["creatorID"]) && isValidID($_GET["creatorID"])) ? $creatorID = $_GET["creatorID"] : $creatorID = false;
 
 try {
     $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
@@ -25,7 +29,14 @@ catch(PDOException $e) {
     response("GET", 400, "DB connection problem");
 }
 
-if ($neededId != false) {
+//returns 1 post with the given ID
+if ($postID != false) {
+
+} else if ($assignedID != false) {
+    //returns all the assigned post to the given userID
+
+} else if ($creatorID != false) {
+    //returns all the post created by the user, but not the self-assigned one, this will be in the assigned API
 
 } else {
 
