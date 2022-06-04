@@ -21,8 +21,6 @@
 
         try {
 
-            $resultSet = array();
-
             if (isset($_GET["id"]) && isValidID($_GET["id"])) {
 
                 $searchedRole = $_GET["id"];
@@ -41,9 +39,11 @@
 
                 $queryRes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                array_push($resultSet, new Role($queryRes["roleID"], $queryRes["roleLabel"]));
+                $resultSet = new Role($queryRes["roleID"], $queryRes["roleLabel"]);
     
             } else {
+
+                $resultSet = array();
 
                 $sql = "SELECT * FROM roles";
                 

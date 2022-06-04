@@ -2,6 +2,7 @@
 
 //TODO update the post it class to contain all the needed information
 //TODO update the user class with the role id
+//TODO change the SQL order (deadline - prio)
 //as well as the constructor
 
 $dirUp = dirname(__DIR__, 2);

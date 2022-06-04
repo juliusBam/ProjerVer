@@ -21,7 +21,7 @@ function isValidID($var) {
 
 function isValidString($var) {
     //die($var);
-    return ($var != "" && $var != null && !empty($var));
+    return ($var != "" && $var != null && !empty($var) && is_string($var));
 }
 
 function isValidTimeStamp($var) {
@@ -34,6 +34,9 @@ function isValidTimeStamp($var) {
 
 function appendPostIt($queryOutput) {
     $resultSet = array();
+    if (!is_array) {
+        response("GET", 400, "Invalid parameter");
+    }
     foreach($queryOutput as $row) {
 
         array_push($resultSet,new PostIt($row["postIt_ID"], $row["title"], $row["descr"],
