@@ -26,6 +26,7 @@ function hideAllDivs()
     $("#newRoleForm").hide();
     $("#deleteUserForm").hide();
     $("#deletePriorityForm").hide();
+    $("#deleteRoleForm").hide();
 }
 function showDiv(hiddenDiv)
 {
