@@ -9,3 +9,8 @@ julioStyle {
 .toDoInput {
   text-align: left!important;
 }
+h3
+{
+  padding-left: 20px;
+  padding-top: 20px;
+}
