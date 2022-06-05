@@ -12,6 +12,9 @@ $dbClass = $dirUp."/php/classes/dbh.classes.php";
 include_once($userClass);
 include_once("../apiFunctions.php");
 
+//accepts only get requests
+checkRequestMethod("GET");
+
 $neededId = false;
 
 $neededPwd = false;

@@ -1,14 +1,15 @@
 <?php
 
-    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+$dirUp = dirname(__DIR__, 2);
 
-        $dirUp = dirname(__DIR__, 2);
+$userClass = $dirUp."/php/dataRequests/dataModels/role.class.php";
+$dbClass = $dirUp."/php/classes/dbh.classes.php";
 
-        $userClass = $dirUp."/php/dataRequests/dataModels/role.class.php";
-        $dbClass = $dirUp."/php/classes/dbh.classes.php";
+include_once($userClass);
+include_once("../apiFunctions.php");
 
-        include_once($userClass);
-        include_once("../apiFunctions.php");
+        //accepts only get requests
+        checkRequestMethod("GET");
 
         try {
             $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
@@ -29,7 +30,7 @@
                             FROM 
                                 roles
                             WHERE
-                                roleID = :newRole";
+                                roleID = :newRole LIMIT 1;";
                 
                 $stmt = $db->prepare($sql);
 
@@ -39,7 +40,10 @@
 
                 $queryRes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                $resultSet = new Role($queryRes["roleID"], $queryRes["roleLabel"]);
+                //var_dump($queryRes);
+                //die();
+
+                $resultSet = new Role($queryRes[0]["roleID"], $queryRes[0]["roleLabel"]);
     
             } else {
 
@@ -73,11 +77,5 @@
             response("GET", 400, $th);
 
         }
-
-    } else {
-
-        response("GET", 400, "Bad request");
-
-    }
 
 ?>
