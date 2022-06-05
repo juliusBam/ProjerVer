@@ -2,7 +2,8 @@
 
 include_once "../apiFunctions.php";
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        //accepts only post requests
+        checkRequestMethod("POST");
 
         //first we clean all the post variables from evil chars
         filter_var_array($_POST, FILTER_SANITIZE_STRING);
@@ -17,7 +18,7 @@ include_once "../apiFunctions.php";
         
         //check the post of the vars
         (isset($_POST["createdBy"]) && isValidID($_POST["createdBy"])) ? $newCreator = $_POST["createdBy"] : response("GET", 400, "Bad user");
-        //die($newCreator);
+
         (isset($_POST["title"]) && isValidString($_POST["title"])) ? $newTitle = $_POST["title"] : response("GET", 400, "Bad title");
 
         (isset($_POST["priority"]) && isValidID($_POST["priority"])) ? $newPriority = $_POST["priority"] : response("GET", 400, "Bad priority ID");
@@ -62,10 +63,5 @@ include_once "../apiFunctions.php";
             response("GET", 400, $th);
 
         }
-
-
-    } else {
-        response("GET", 400, "Bad request");
-    }
 
 ?>

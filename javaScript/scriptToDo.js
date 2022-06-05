@@ -1,7 +1,6 @@
 
 //
 $(document).ready(function(){
-
     $( "#personalList" ).sortable();
     $( "#externalList" ).sortable();
     $("#divCreateTodo").hide();

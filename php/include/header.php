@@ -26,6 +26,9 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Chat</a>
       </li>
+      <li>
+        <a class="nav-link" href="adminPage.php">Admin Page</a>
+      </li> 
     </ul>
   </div>
 </nav>

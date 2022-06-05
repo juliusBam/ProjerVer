@@ -1,11 +1,10 @@
-body {
-  background-color: black;
-}
-
 julioStyle {
   background-color: yellow;
 }
 
 .toDoInput {
   text-align: left!important;
+}
+#divCreateTodo {
+  margin-bottom: 20px !important;
 }
