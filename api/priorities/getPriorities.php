@@ -1,127 +1,132 @@
 <?php
 
-$dirUp = dirname(__DIR__, 2);
-
-$userClass = $dirUp."/php/dataRequests/dataModels/priority.class.php";
-$dbClass = $dirUp."/php/classes/dbh.classes.php";
-
-include_once($userClass);
-include_once("../apiFunctions.php");
-
-$neededId = false;
-
-$neededLabel = false;
-
-$resultSet = null;
-
-(isset($_GET["id"]) && $_GET["id"] != "") ? $neededId = $_GET["id"] : $neededId = false;
-(isset($_GET["label"]) && $_GET["label"] != "") ? $neededLabel = $_GET["label"] : $neededLabel = false;
-
-
-
-try {
-    $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
-}
-catch(PDOException $e) {
-    response("GET", 400, "DB connection problem");
-}
-
-if ($neededId && !$neededLabel) {
-
-    //$pwdToSearchFor = md5($neededPwd);
-
-    $query = $db->prepare("SELECT * 
-                            FROM 
-                                priorities
-                            WHERE
-                                priorityID = :prioID;");
-
-
-
-    $query->bindParam("prioID", $neededId, PDO::PARAM_INT);
-
-    $query->execute();
-
-    $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    if ($queryRes != null) {
-
-        array_push($resultSet, new Priority($queryRes["priorityID"], $queryRes["priorityLabel"]));
-
-    } else if ($resultSet == null) {
-
-        $resultSet = "noResult";
+if ($_SERVER["REQUEST_METHOD"] === "GET") {
     
+    $dirUp = dirname(__DIR__, 2);
+
+    $userClass = $dirUp."/php/dataRequests/dataModels/priority.class.php";
+    $dbClass = $dirUp."/php/classes/dbh.classes.php";
+
+    include_once($userClass);
+    include_once("../apiFunctions.php");
+
+    $neededId = false;
+
+    $neededLabel = false;
+
+    $resultSet = null;
+
+    (isset($_GET["id"]) && isValidID($_GET["id"])) ? $neededId = $_GET["id"] : $neededId = false;
+    (isset($_GET["label"]) && isValidString($_GET["label"])) ? $neededLabel = $_GET["label"] : $neededLabel = false;
+
+
+
+    try {
+        $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
+    }
+    catch(PDOException $e) {
+        response("GET", 400, "DB connection problem");
     }
 
-} else if (!$neededId && $neededLabel) {
+    if ($neededId && !$neededLabel) {
+
+        //$pwdToSearchFor = md5($neededPwd);
+
+        $query = $db->prepare("SELECT * 
+                                FROM 
+                                    priorities
+                                WHERE
+                                    priorityID = :prioID;");
 
 
-    $query = $db->prepare("SELECT * 
-                            FROM 
-                                priorities
-                            WHERE
-                                priorityLabel = :prioLabel;");
 
+        $query->bindParam("prioID", $neededId, PDO::PARAM_INT);
 
+        $query->execute();
 
-    $query->bindParam("prioLabel", $neededLabel, PDO::PARAM_STR);
+        $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    $query->execute();
+        if ($queryRes != null) {
 
-    $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
+            array_push($resultSet, new Priority($queryRes["priorityID"], $queryRes["priorityLabel"]));
 
-    if ($queryRes != null) {
+        } else if ($resultSet == null) {
 
-        array_push($resultSet, new Priority($queryRes["priorityID"], $queryRes["priorityLabel"]));
-
-    } else if ($resultSet == null) {
-
-        $resultSet = "noResult";
-    
-    }
-
-} else {
-
-    $query = $db->prepare("SELECT * 
-                            FROM 
-                                priorities;");
-
-    $query->execute();
-
-    $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    if ($queryRes != null) {
-
-        $resultSet = array();
-
-        foreach($queryRes as $row) {
-
-            //$resultSet = $row["priorityID"];
-            array_push($resultSet, new Priority($row["priorityID"], $row["priorityLabel"]));
+            $resultSet = "noResult";
         
         }
 
-    } else if ($resultSet == null) {
+    } else if (!$neededId && $neededLabel) {
 
-        $resultSet = "noResult";
-    
+
+        $query = $db->prepare("SELECT * 
+                                FROM 
+                                    priorities
+                                WHERE
+                                    priorityLabel = :prioLabel;");
+
+
+
+        $query->bindParam("prioLabel", $neededLabel, PDO::PARAM_STR);
+
+        $query->execute();
+
+        $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($queryRes != null) {
+
+            array_push($resultSet, new Priority($queryRes["priorityID"], $queryRes["priorityLabel"]));
+
+        } else if ($resultSet == null) {
+
+            $resultSet = "noResult";
+        
+        }
+
+    } else {
+
+        $query = $db->prepare("SELECT * 
+                                FROM 
+                                    priorities;");
+
+        $query->execute();
+
+        $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($queryRes != null) {
+
+            $resultSet = array();
+
+            foreach($queryRes as $row) {
+
+                //$resultSet = $row["priorityID"];
+                array_push($resultSet, new Priority($row["priorityID"], $row["priorityLabel"]));
+            
+            }
+
+        } else if ($resultSet == null) {
+
+            response("GET", 400, "Bad request");
+        
+        }
+
     }
 
-}
+    switch ($resultSet) {
 
-switch ($resultSet) {
-
-    case "noResult":
-        response("GET", 400, "Wrong id");
-        break;
-    case false:
-        response("GET", 400, "An error occoured");
-        break;
-    case null:
-        response("GET", 400, "Empty");
-    default:
-        response("GET", 200, $resultSet);
+        case "noResult":
+            response("GET", 400, "Wrong id");
+            break;
+        case false:
+            response("GET", 400, "An error occoured");
+            break;
+        case null:
+            response("GET", 400, "Empty");
+        default:
+            response("GET", 200, $resultSet);
+    }
+} else {
+    response("GET", 400, "Bad method");
 }
 
 ?>

@@ -29,102 +29,109 @@ catch(PDOException $e) {
     response("GET", 400, "DB connection problem");
 }
 
+try {
 
-if ($neededId && $neededPwd) {
+    if ($neededId && $neededPwd) {
 
-    //$pwdToSearchFor = md5($neededPwd);
-
-    $pwdToSearchFor = $neededPwd;
-
-    $query = $db->prepare("SELECT * 
-	                        FROM users 
-                                JOIN 
-    	                            roles on users.fk_roleID = roles.roleID
-                            WHERE
-    	                        userID = :uID AND pwd = :hashPwd 
-                            LIMIT 1");
-
-    $query->bindParam("uID", $neededId, PDO::PARAM_INT);
-    $query->bindParam("hashPwd", $pwdToSearchFor, PDO::PARAM_STR);
-
-
-    $query->execute();
-
-    $queryRes = $query->fetch();
-
-    if ($queryRes != null) {
-
-        $resultSet = new UserData($queryRes["userID"], $queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
-                                    $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
-                                    $queryRes["roleLabel"], $queryRes["creationTimeStamp"]);
-
-    }
-
-    if ($resultSet == null) {
-
-        $resultSet = "wrongPass";
+        //$pwdToSearchFor = md5($neededPwd);
     
-    }
-
-} else if ($neededId && $neededPwd == false) {
-
-    $query = $db->prepare("SELECT * 
-                            FROM users 
-                                JOIN 
-                                    roles on users.fk_roleID = roles.roleID
-                            WHERE
-                                userID = :uID
-                            LIMIT 1");
-
-    $query->bindParam("uID", $neededId, PDO::PARAM_INT);
+        $pwdToSearchFor = $neededPwd;
     
-    $query->execute();
-    $queryRes = $query->fetch();
-
-    if ($queryRes != null) {
-
-        $resultSet = new UserData($queryRes["userID"], $queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
-                                    $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
-                                    $queryRes["roleLabel"], $queryRes["creationTimeStamp"]);
-
-    }
-
-    if ($resultSet == null) {
-
-        $resultSet = "noUser";
-
-    }
-
-
-} else {
-
-    $query = $db->prepare("SELECT * 
-                            FROM users 
-                                JOIN 
-                                    roles on users.fk_roleID = roles.roleID");
+        $query = $db->prepare("SELECT * 
+                                FROM users 
+                                    JOIN 
+                                        roles on users.fk_roleID = roles.roleID
+                                WHERE
+                                    userID = :uID AND pwd = :hashPwd 
+                                LIMIT 1");
     
-    $query->execute();
-    $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    if (count($queryRes) > 0) {
-
-        //the result set has to become an array in order to push every found dataset into it
-        $resultSet = array();
-
-        foreach($queryRes as $row) {
-
-            array_push($resultSet,new UserData($row["userID"], $row["userName"], $row["firstName"], $row["secondName"],
-                                                    $row["gender"], $row["birthdate"], $row["userEmail"],
-                                                    $row["roleLabel"], $row["creationTimeStamp"]));
-                                                    
+        $query->bindParam("uID", $neededId, PDO::PARAM_INT);
+        $query->bindParam("hashPwd", $pwdToSearchFor, PDO::PARAM_STR);
+    
+    
+        $query->execute();
+    
+        $queryRes = $query->fetch();
+    
+        if ($queryRes != null) {
+    
+            $resultSet = new UserData($queryRes["userID"], $queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
+                                        $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
+                                        $queryRes["roleLabel"], $queryRes["creationTimeStamp"]);
+    
         }
+    
+        if ($resultSet == null) {
+    
+            $resultSet = "wrongPass";
+        
+        }
+    
+    } else if ($neededId && $neededPwd == false) {
+    
+        $query = $db->prepare("SELECT * 
+                                FROM users 
+                                    JOIN 
+                                        roles on users.fk_roleID = roles.roleID
+                                WHERE
+                                    userID = :uID
+                                LIMIT 1");
+    
+        $query->bindParam("uID", $neededId, PDO::PARAM_INT);
+        
+        $query->execute();
+        $queryRes = $query->fetch();
+    
+        if ($queryRes != null) {
+    
+            $resultSet = new UserData($queryRes["userID"], $queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
+                                        $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
+                                        $queryRes["roleLabel"], $queryRes["creationTimeStamp"]);
+    
+        }
+    
+        if ($resultSet == null) {
+    
+            $resultSet = "noUser";
+    
+        }
+    
+    
+    } else {
+    
+        $query = $db->prepare("SELECT * 
+                                FROM users 
+                                    JOIN 
+                                        roles on users.fk_roleID = roles.roleID");
+        
+        $query->execute();
+        $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+        if (count($queryRes) > 0) {
+    
+            //the result set has to become an array in order to push every found dataset into it
+            $resultSet = array();
+    
+            foreach($queryRes as $row) {
+    
+                array_push($resultSet,new UserData($row["userID"], $row["userName"], $row["firstName"], $row["secondName"],
+                                                        $row["gender"], $row["birthdate"], $row["userEmail"],
+                                                        $row["roleLabel"], $row["creationTimeStamp"]));
+                                                        
+            }
+        }
+    
+        if ($resultSet == null) {
+    
+            $resultSet = "noUser";
+    
+        }
+    
     }
 
-    if ($resultSet == null) {
+} catch (\Throwable $th) {
 
-        $resultSet = "noUser";
-
-    }
+    response("GET", 400, $th);
 
 }
 

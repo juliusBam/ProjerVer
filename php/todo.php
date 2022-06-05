@@ -1,6 +1,7 @@
 <?php include('../php/include/header.php')?>
     <script src="../javaScript/functionsToDo.js" type="text/javascript"></script>
     <script src="../javaScript/scriptToDo.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../css/myStyle.css">
     <h3 class="text-center pt-5">Board</h3>
     <div class="container">
         <div id="listContainer">
