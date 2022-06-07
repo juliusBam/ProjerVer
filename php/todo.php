@@ -6,6 +6,7 @@
     <div class="container">
         <div id="listContainer">
             <div class="row bg-light p-4">
+                <h2 class="text-center">Open</h2>
                 <div class="col">
                     <h3>Personal List:</h3>
                     <ul class="list-group" id="personalList">
@@ -14,6 +15,19 @@
                 <div class="col">
                     <h3>External List:</h3>
                     <ul class="list-group" id="externalList">
+                    </ul>
+                </div>
+            </div>
+            <div class="row bg-light p-4">
+                <div>
+                <h2 class="text-center">Closed</h2>
+                </div>
+                <div class="col">
+                    <ul class="list-group" id="personalListPast">
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="list-group" id="externalListPast">
                     </ul>
                 </div>
             </div>

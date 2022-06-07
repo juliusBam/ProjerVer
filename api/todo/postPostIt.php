@@ -2,7 +2,8 @@
 
 include_once "../apiFunctions.php";
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        //accepts only post requests
+        checkRequestMethod("POST");
 
         //first we clean all the post variables from evil chars
         filter_var_array($_POST, FILTER_SANITIZE_STRING);
@@ -62,9 +63,5 @@ include_once "../apiFunctions.php";
             response("GET", 400, $th);
 
         }
-
-    } else {
-        response("GET", 400, "Bad request");
-    }
 
 ?>

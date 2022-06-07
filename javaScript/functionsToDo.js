@@ -1,4 +1,3 @@
-//alert("script");
 //TODO add error message
 //TODO add success message
 function showCreateTodo() {
@@ -86,30 +85,86 @@ function createTodo() {
 
 function loadInitialData()
 {
+    //First we populate the part with the active deadline
+    $("#personaList").empty();
+    //We Get the TO DO assigned to us
     $.ajax({
-          'url': '../api/todo/getPostIt.php',
+          'url': '../api/todo/getPostIt.php?assignedID=1&onlyFuture=1',
           'type': 'GET',
           'cache': false,
           'dataType': 'json',
       })
       .done( function (response) {
-          //console.log(response);
-
+        if (response != "Empty") {
             for(var i=0; i<response.length;i++)
             {
-                var listItem = document.createElement("li");
+                appendListElToEl("personalList", response[i]);
+/*                 var listItem = document.createElement("li");
                 listItem.setAttribute("class", "list-group-item");
                 listItem.innerHTML = response[i].title;
-                if(response[i].createdBy == response[i].assignedTo)
-                {
-                    document.getElementById("personalList").appendChild(listItem);
-                }
-                else{
-                    document.getElementById("externalList").appendChild(listItem);
-                }
+                document.getElementById("personalList").appendChild(listItem); */
 
             }
+        }
       })
+    //Than we get the TO DO created by us
+        $.ajax({
+            'url': '../api/todo/getPostIt.php?creatorID=1&onlyFuture=1',
+            'type': 'GET',
+            'cache': false,
+            'dataType': 'json',
+        })
+        .done( function (response) {
+            if (response != "Empty") {
+                for(var i=0; i<response.length;i++)
+                {
+                    appendListElToEl("externalList", response[i]);
+/*                   var listItem = document.createElement("li");
+                  listItem.setAttribute("class", "list-group-item");
+                  listItem.innerHTML = response[i].title;
+                  document.getElementById("externalList").appendChild(listItem); */
+                }
+            }
+        })
+    //Now we fill the part with the past deadline:
+        //We get the TO DO assigned to us
+        $.ajax({
+            'url': '../api/todo/getPostIt.php?assignedID=1&onlyPast=1',
+            'type': 'GET',
+            'cache': false,
+            'dataType': 'json',
+        })
+        .done( function (response) {
+            if (response != "Empty") {
+                for(var i=0; i<response.length;i++)
+                {
+                    appendListElToEl("personalListPast", response[i]);
+/*                   var listItem = document.createElement("li");
+                  listItem.setAttribute("class", "list-group-item");
+                  listItem.innerHTML = response[i].title;
+                  document.getElementById("personalListPast").appendChild(listItem); */
+                }
+            }
+        })
+        //And now we get the TO DO created by us
+        $.ajax({
+            'url': '../api/todo/getPostIt.php?creatorID=1&onlyPast=1',
+            'type': 'GET',
+            'cache': false,
+            'dataType': 'json',
+        })
+        .done( function (response) {
+            if (response != "Empty") {
+                for(var i=0; i<response.length;i++)
+                {
+                    appendListElToEl("externalListPast", response[i]);
+                  /*var listItem = document.createElement("li");
+                  listItem.setAttribute("class", "list-group-item");
+                  listItem.innerHTML = response[i].title;
+                  document.getElementById("externalListPast").appendChild(listItem);*/
+                }
+            }
+        })
 }
 
 function deleteEl() {
@@ -245,4 +300,76 @@ function populatePrios(selectToAppendTo) {
         //TODO add an error reporting
         alert(errorThrown + "\n" + response);
     });
+}
+
+function appendListElToEl(elID, response) {
+    var listItem = document.createElement("li");
+    $(listItem).css("cursor", "pointer");
+    listItem.onclick = function() {
+        let elToToggle = $(this).find(".infoContainer");
+        if ($(elToToggle).is(":visible")) {
+            elToToggle.hide();
+        } else {
+            elToToggle.show();
+        }
+        
+    }
+    listItem.setAttribute("class", "list-group-item");
+    let itemContainer = document.createElement("div");
+    $(itemContainer).addClass("infoContainer");
+    $(itemContainer).hide();
+
+    //####BEGIN title creation
+    let title = document.createElement("h5");
+    title.innerHTML = response.title;
+    $(title).addClass("text-success");
+    listItem.appendChild(title);
+
+    let priority = document.createElement("div");
+    $(priority).addClass("text-bold");
+    $(priority).html(response.priorityLabel);
+    itemContainer.appendChild(priority);
+
+    //#####BEGIN descr creation
+    let descrContainer = document.createElement("div");
+    $(descrContainer).addClass("text");
+    $(descrContainer).text(response.description);
+    itemContainer.appendChild(descrContainer);
+
+    //####BEGIN date creation 
+    let dateRow = document.createElement("div");
+    $(dateRow).addClass("row");
+    let creationCol = document.createElement("div");
+    $(creationCol).addClass("col-md-6");
+    //we want only the first part of the timestamp aka the date
+    $(creationCol).html("<small>Created on:</small>" + "<br>" + response.createdOn.split(" ")[0]);
+    let deadlineCol = document.createElement("div");
+    $(deadlineCol).addClass("col-md-6");
+    $(deadlineCol).addClass("text-end")
+    $(deadlineCol).html("<small>Deadline</small>"+ "<br>"  + response.deadline);
+    dateRow.appendChild(creationCol);
+    dateRow.appendChild(deadlineCol);
+    itemContainer.appendChild(dateRow);
+
+    //#####BEGIN Users creation
+    let userRow = document.createElement("div");
+    $(userRow).addClass("row");
+    let creatorCol = document.createElement("div");
+    $(creatorCol).addClass("col-md-6");
+    //we want only the first part of the timestamp aka the date
+    $(creatorCol).html("<small>Created by:</small>" + "<br>" + response.createdByName);
+    let assignedCol = document.createElement("div");
+    $(assignedCol).addClass("col-md-6");
+    $(assignedCol).addClass("text-end")
+    $(assignedCol).html("<small>Assigned to</small>"+ "<br>"  + response.assignedToName);
+    dateRow.appendChild(creatorCol);
+    dateRow.appendChild(assignedCol);
+    itemContainer.appendChild(userRow);
+
+    //TODO add button to change status
+
+
+    listItem.appendChild(itemContainer);
+    //listItem.innerHTML = response.title;
+    document.getElementById(elID).appendChild(listItem);
 }
