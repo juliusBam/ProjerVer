@@ -1,4 +1,6 @@
-<?php include('../php/include/header.php')?>
+<?php include('../php/include/header.php');?>
+<?php include('include/modals.inc.php');?>
+    <script src="../javaScript/userAlerts.js" type="text/javascript"></script>
     <script src="../javaScript/functionsToDo.js" type="text/javascript"></script>
     <script src="../javaScript/scriptToDo.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../css/myStyle.css">

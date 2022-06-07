@@ -5,6 +5,7 @@ $(document).ready(function(){
     $( "#externalList" ).sortable();
     $("#divCreateTodo").hide();
     loadInitialData();
+    //alertUser("success", "Cool you did it", "Your operation was successful");
     //------- alex's old Code ??
 
     $("#listContainer").sortable();

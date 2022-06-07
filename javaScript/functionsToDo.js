@@ -2,10 +2,12 @@
 //TODO add success message
 function showCreateTodo() {
     $(".errorInputs").hide();
-    //fetches the users and populates the select with them
+        //fetches the users and populates the select with them
     populateUsers($("#assignInput"));
+
     //fetches the different priorities from the db and adds them to the dropdown
     populatePrios($("#priorityInput"));
+
     $("#divCreateTodo").fadeIn();
 }
 function createTodo() {
@@ -232,6 +234,8 @@ function appendToList(arrayInputs, newClass) {
 function purgeList() {
     $("#personalList > .list-group-item").remove();
     $("#externalList > .list-group-item").remove();
+    $("#personalListPast > .list-group-item").remove();
+    $("#externalListPast > .list-group-item").remove();
 }
 
 function postPostIt(dataToSend) {
@@ -247,15 +251,17 @@ function postPostIt(dataToSend) {
             assignedTo: dataToSend[2],
             descr: dataToSend[3],
             deadline: dataToSend[4]
+        },
+        success : function (response) {
+            //purge lists
+            purgeList();
+            //loads the data from db
+            loadInitialData();
+            alertUser("success", "Data saved!", "Your data was correctly saved");
+        },
+        error : function (response){
+            alertUser("error", "Error in data upload", "An error occourred while saving your data");
         }
-    }).done(function (response) {
-        console.log(response);
-        //purge lists
-        purgeList();
-        //loads the data from db
-        loadInitialData();
-    }).fail(function (response){
-        console.log(response);
     });
 }
 
@@ -265,18 +271,17 @@ function populateUsers(selectToAppendTo) {
         'type': 'GET',
         'cache': false,
         'dataType': 'json',
-    })
-    .done( function (response) {
-        for(var i=0; i<response.length;i++) {
-            let newOption = $("<option>");
-            newOption.val(response[i].uID);
-            newOption.html(response[i].uName + " | " + response[i].firstName + " " + response[i].secondName);
-            selectToAppendTo.append(newOption);
+        success : function (response) {
+            for(var i=0; i<response.length;i++) {
+                let newOption = $("<option>");
+                newOption.val(response[i].uID);
+                newOption.html(response[i].uName + " | " + response[i].firstName + " " + response[i].secondName);
+                selectToAppendTo.append(newOption);
+            }
+        },
+        error : function (errorThrown, response) {
+            alertUser("error", "Error in data loading", "An error occoured while loading the users' list");
         }
-    })
-    .fail( function (errorThrown, response) {
-        //TODO add an error reporting
-        alert(errorThrown + "\n" + response);
     });
 }
 
@@ -286,19 +291,18 @@ function populatePrios(selectToAppendTo) {
         'type': 'GET',
         'cache': false,
         'dataType': 'json',
-    })
-    .done( function (response) {
-        //console.log(response.length);
-        for(var i=0; i<response.length;i++) {
-            let newOption = $("<option>");
-            newOption.val(response[i].id);
-            newOption.html(response[i].label);
-            selectToAppendTo.append(newOption);
+        success : function (response) {
+            //console.log(response.length);
+            for(var i=0; i<response.length;i++) {
+                let newOption = $("<option>");
+                newOption.val(response[i].id);
+                newOption.html(response[i].label);
+                selectToAppendTo.append(newOption);
+            }
+        },
+        error : function (errorThrown, response) {
+            alertUser("error", "Error in data loading", "An error occoured loading the priority's list");
         }
-    })
-    .fail( function (errorThrown, response) {
-        //TODO add an error reporting
-        alert(errorThrown + "\n" + response);
     });
 }
 
