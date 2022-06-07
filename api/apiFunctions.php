@@ -34,9 +34,9 @@ function isValidTimeStamp($var) {
 
 function appendPostIt($queryOutput) {
     $resultSet = array();
-    if (!is_array) {
+    /*if (!is_array) {
         response("GET", 400, "Invalid parameter");
-    }
+    }*/
     foreach($queryOutput as $row) {
 
         array_push($resultSet,new PostIt($row["postIt_ID"], $row["title"], $row["descr"],

@@ -21,7 +21,7 @@
             <label for="priority">Name for priority</label>
             <input type="text" class="form-control w-50" id="priority" placeholder="Enter a new priority" required>
             <br>
-            <button class="btn btn-outline-success" type="submit">Create priority now</button>
+            <button class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal" onclick="postPriority()">Create priority now</button>
         </div>
     </form>
     <form>
