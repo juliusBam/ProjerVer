@@ -366,6 +366,8 @@ function appendListElToEl(elID, response) {
     dateRow.appendChild(assignedCol);
     itemContainer.appendChild(userRow);
 
+    //TODO add button to change status
+
 
     listItem.appendChild(itemContainer);
     //listItem.innerHTML = response.title;
