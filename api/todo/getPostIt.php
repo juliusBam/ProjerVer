@@ -45,7 +45,7 @@ if ($postID != false) {
         $sql = "SELECT postIt_ID, title, descr, createdBy_userID, users.userName as creatorName, 
                             assignedTo_userID, u1.userName as assignedName, 
                             priorities.priorityLabel as prioLabel, 
-                            deadline, postIt.creationTimeStamp as postTimeStamp, fk_priorityID
+                            deadline, postIt.creationTimeStamp as postTimeStamp, fk_priorityID, postStatus
                     FROM `postIt` 
                         JOIN
                             users on postIt.createdBy_userID = users.userID
@@ -78,15 +78,16 @@ if ($postID != false) {
         
                 //the result set has to become an array in order to push every found dataset into it
                 $resultSet = array();
+                $resultSet = appendPostIt($queryRes);
         
-                foreach($queryRes as $row) {
+                /*foreach($queryRes as $row) {
         
                     array_push($resultSet,new PostIt($row["postIt_ID"], $row["title"], $row["descr"],
                                                             $row["postTimeStamp"], $row["deadline"], $row["createdBy_userID"],
                                                             $row["creatorName"], $row["assignedTo_userID"], $row["assignedName"],
-                                                            $row["fk_priorityID"],$row["prioLabel"]));
+                                                            $row["fk_priorityID"],$row["prioLabel"],$row["postStatus"]));
                                                             
-                }
+                }*/
 
             }
 
@@ -109,7 +110,7 @@ if ($postID != false) {
     $sql = "SELECT postIt_ID, title, descr, createdBy_userID, users.userName as creatorName, 
                     assignedTo_userID, u1.userName as assignedName, 
                     priorities.priorityLabel as prioLabel, 
-                    deadline, postIt.creationTimeStamp as postTimeStamp, fk_priorityID
+                    deadline, postIt.creationTimeStamp as postTimeStamp, fk_priorityID, postStatus
                 FROM `postIt` 
                 JOIN
                     users on postIt.createdBy_userID = users.userID
@@ -162,7 +163,7 @@ if ($postID != false) {
     $sql = "SELECT postIt_ID, title, descr, createdBy_userID, users.userName as creatorName, 
                     assignedTo_userID, u1.userName as assignedName, 
                     priorities.priorityLabel as prioLabel, 
-                    deadline, postIt.creationTimeStamp as postTimeStamp, fk_priorityID
+                    deadline, postIt.creationTimeStamp as postTimeStamp, fk_priorityID, postStatus
                 FROM `postIt` 
                 JOIN
                     users on postIt.createdBy_userID = users.userID
@@ -219,7 +220,7 @@ if ($postID != false) {
     $sql = "SELECT postIt_ID, title, descr, createdBy_userID, users.userName as creatorName, 
                     assignedTo_userID, u1.userName as assignedName, 
                     priorities.priorityLabel as prioLabel, 
-                    deadline, postIt.creationTimeStamp as postTimeStamp, fk_priorityID
+                    deadline, postIt.creationTimeStamp as postTimeStamp, fk_priorityID, postStatus
                 FROM `postIt` 
                 JOIN
                     users on postIt.createdBy_userID = users.userID
