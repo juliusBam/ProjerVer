@@ -35,12 +35,8 @@ if ($deadlinePast && $deadlineFuture) {
 
 $orderingClause = " ORDER BY deadline ASC, fk_priorityID ASC";
 
-try {
-    $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
-}
-catch(PDOException $e) {
-    response("GET", 400, "DB connection problem");
-}
+//connects to db
+include_once("../apiDbConnection.php");
 
 //returns 1 post with the given ID
 if ($postID != false) {

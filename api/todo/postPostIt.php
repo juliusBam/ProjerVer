@@ -32,12 +32,7 @@ include_once "../apiFunctions.php";
         //since the response function ends the script we reach this part only if all the inputs are valid
 
         //connects to db
-        try {
-            $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
-        }
-        catch(PDOException $e) {
-            response("GET", 400, "DB connection problem");
-        }
+        include_once("../apiDbConnection.php");
 
         $sql = "INSERT INTO postIt
                     (title, descr, createdBy_userID, assignedTo_userID, fk_priorityID, deadline)

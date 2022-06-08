@@ -21,6 +21,9 @@ include_once "../apiFunctions.php";
     //check the post of the vars
     (isset($_POST["username"]) && $_POST["username"] != "") ? $newUserName = $_POST["username"] : response("GET", 400, "Invalid username");
     (isset($_POST["firstName"]) && $_POST["firstName"] != "") ? $newFirstName = $_POST["firstName"] : response("GET", 400, "Invalid first name");
+
+    include_once("../apiDbConnection.php");
+
     response("GET", 200, "Okkey");
 
 ?>
