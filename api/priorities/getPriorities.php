@@ -21,13 +21,8 @@ include_once("../apiFunctions.php");
     (isset($_GET["label"]) && isValidString($_GET["label"])) ? $neededLabel = $_GET["label"] : $neededLabel = false;
 
 
-
-    try {
-        $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
-    }
-    catch(PDOException $e) {
-        response("GET", 400, "DB connection problem");
-    }
+    //connects to db
+    include_once("../apiDbConnection.php");
 
     try {
 

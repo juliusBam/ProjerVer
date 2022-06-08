@@ -1,9 +1,5 @@
 <?php
 
-//TODO update the post it class to contain all the needed information
-//TODO update the user class with the role id
-//as well as the constructor
-
 $dirUp = dirname(__DIR__, 2);
 
 $userClass = $dirUp."/php/dataRequests/dataModels/user.class.php";
@@ -25,12 +21,7 @@ $resultSet = null;
 
 (isset($_GET["pwd"]) && $_GET["pwd"] != "") ? $neededPwd = $_GET["pwd"] : $neededPwd = false;
 
-try {
-    $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
-}
-catch(PDOException $e) {
-    response("GET", 400, "DB connection problem");
-}
+include_once("../apiDbConnection.php");
 
 try {
 

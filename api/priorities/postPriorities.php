@@ -14,12 +14,7 @@ include_once "../apiFunctions.php";
         (isset($_POST["label"]) && isValidString($_POST["label"])) ? $newLabel = $_POST["label"] : response("GET", 400, "Bad label");
 
         //connects to db
-        try {
-            $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
-        }
-        catch(PDOException $e) {
-            response("GET", 400, "DB connection problem");
-        }
+        include_once("../apiDbConnection.php");
 
         $sql = "INSERT 
                     INTO  

@@ -11,12 +11,8 @@ include_once("../apiFunctions.php");
         //accepts only get requests
         checkRequestMethod("GET");
 
-        try {
-            $db = new PDO('mysql:host=localhost;dbname=projerVer', "itProjektUser", "itProjektUser");
-        }
-        catch(PDOException $e) {
-            response("GET", 400, "DB connection problem");
-        }
+        //connects to db
+        include_once("../apiDbConnection.php");
 
         $resultSet;
 
