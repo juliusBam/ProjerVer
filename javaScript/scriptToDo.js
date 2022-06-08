@@ -10,7 +10,7 @@ $(document).ready(function(){
 
     $("#listContainer").sortable();
     $("#btnHide").removeClass("hiddenBtn");
-    $(document).on("click", ".delete", deleteEl);
+    //$(document).on("click", ".delete", deleteEl);
     $(document).on("click", "#inputTitle", hideErrorsTit);
     $(document).on("click", "#inputDesc", hideErrorsDesc);
     $(document).on("click", "#inputPriority", hideErrorsPriority);

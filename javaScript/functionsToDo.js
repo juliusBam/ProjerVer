@@ -173,10 +173,10 @@ function loadInitialData()
         });
 }
 
-function deleteEl() {
+/*function deleteEl() {
     $(this).parents("li").fadeOut("slow");
     $(this).parents("li").hide();
-}
+}*/
 
 function hideErrorsTit() {
     $("#noProject").hide();
@@ -201,7 +201,7 @@ function hideList() {
     }
 }
 
-function appendToList(arrayInputs, newClass) {
+/*function appendToList(arrayInputs, newClass) {
     let listEl = document.createElement('li'); //creates the container for the list
     listEl.className = "list-group-item text-left " + newClass;
     //creates the html items to append to the list
@@ -240,7 +240,7 @@ function purgeList() {
     $("#externalList > .list-group-item").remove();
     $("#personalListPast > .list-group-item").remove();
     $("#externalListPast > .list-group-item").remove();
-}
+}*/
 
 function postPostIt(dataToSend) {
     //data to send is the array
