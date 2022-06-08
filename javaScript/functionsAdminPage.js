@@ -33,6 +33,24 @@ function showDiv(hiddenDiv)
     hideAllDivs();
     hiddenDiv.fadeIn();
 }
+function postPriority()
+{
+    console.log($('#priority').val());
+    function postPostIt(dataToSend) {
+        //data to send is the array
+        $.ajax({
+            'url': '../api/todo/postPostIt.php',
+            'type': 'POST',
+            data: {
+                newLabel: $('#priority').val()
+            }
+        }).done(function (response) {
+            alert("adding was succ");
+        }).fail(function (response){
+            console.log(response);
+        });
+    }
+}
 function DeleteUser()
 {
 

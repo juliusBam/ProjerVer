@@ -45,6 +45,7 @@ function checkRequestMethod($shouldBe) {
 
 function appendPostIt($queryOutput) {
     $resultSet = array();
+
     if (!is_array($queryOutput)) {
         response("GET", 400, "Invalid parameter");
     }
