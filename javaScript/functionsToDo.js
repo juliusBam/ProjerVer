@@ -95,39 +95,37 @@ function loadInitialData()
           'type': 'GET',
           'cache': false,
           'dataType': 'json',
-      })
-      .done( function (response) {
-        if (response != "Empty") {
-            for(var i=0; i<response.length;i++)
-            {
-                appendListElToEl("personalList", response[i]);
-/*                 var listItem = document.createElement("li");
-                listItem.setAttribute("class", "list-group-item");
-                listItem.innerHTML = response[i].title;
-                document.getElementById("personalList").appendChild(listItem); */
-
+          success : function (response) {
+            if (response != "Empty") {
+                for(var i=0; i<response.length;i++)
+                {
+                    appendListElToEl("personalList", response[i]);
+    
+                }
             }
-        }
-      })
+          },
+          error : function () {
+            alertUser("error", "Error in data loading", "An error occourred while loading the post-it");
+          }
+      });
     //Than we get the TO DO created by us
         $.ajax({
             'url': '../api/todo/getPostIt.php?creatorID=1&onlyFuture=1',
             'type': 'GET',
             'cache': false,
             'dataType': 'json',
-        })
-        .done( function (response) {
-            if (response != "Empty") {
-                for(var i=0; i<response.length;i++)
-                {
-                    appendListElToEl("externalList", response[i]);
-/*                   var listItem = document.createElement("li");
-                  listItem.setAttribute("class", "list-group-item");
-                  listItem.innerHTML = response[i].title;
-                  document.getElementById("externalList").appendChild(listItem); */
+            success: function (response) {
+                if (response != "Empty") {
+                    for(var i=0; i<response.length;i++)
+                    {
+                        appendListElToEl("externalList", response[i]);
+                    }
                 }
+            },
+            error : function () {
+                alertUser("error", "Error in data loading", "An error occourred while loading the post-it");
             }
-        })
+        });
     //Now we fill the part with the past deadline:
         //We get the TO DO assigned to us
         $.ajax({
@@ -135,38 +133,44 @@ function loadInitialData()
             'type': 'GET',
             'cache': false,
             'dataType': 'json',
-        })
-        .done( function (response) {
-            if (response != "Empty") {
-                for(var i=0; i<response.length;i++)
-                {
-                    appendListElToEl("personalListPast", response[i]);
-/*                   var listItem = document.createElement("li");
-                  listItem.setAttribute("class", "list-group-item");
-                  listItem.innerHTML = response[i].title;
-                  document.getElementById("personalListPast").appendChild(listItem); */
+            success : function (response) {
+                if (response != "Empty") {
+                    for(var i=0; i<response.length;i++)
+                    {
+                        appendListElToEl("personalListPast", response[i]);
+    /*                   var listItem = document.createElement("li");
+                      listItem.setAttribute("class", "list-group-item");
+                      listItem.innerHTML = response[i].title;
+                      document.getElementById("personalListPast").appendChild(listItem); */
+                    }
                 }
+            },
+            error : function () {
+                alertUser("error", "Error in data loading", "An error occourred while loading the post-it");
             }
-        })
+        });
         //And now we get the TO DO created by us
         $.ajax({
             'url': '../api/todo/getPostIt.php?creatorID=1&onlyPast=1',
             'type': 'GET',
             'cache': false,
             'dataType': 'json',
-        })
-        .done( function (response) {
-            if (response != "Empty") {
-                for(var i=0; i<response.length;i++)
-                {
-                    appendListElToEl("externalListPast", response[i]);
-                  /*var listItem = document.createElement("li");
-                  listItem.setAttribute("class", "list-group-item");
-                  listItem.innerHTML = response[i].title;
-                  document.getElementById("externalListPast").appendChild(listItem);*/
+            success : function (response) {
+                if (response != "Empty") {
+                    for(var i=0; i<response.length;i++)
+                    {
+                        appendListElToEl("externalListPast", response[i]);
+                      /*var listItem = document.createElement("li");
+                      listItem.setAttribute("class", "list-group-item");
+                      listItem.innerHTML = response[i].title;
+                      document.getElementById("externalListPast").appendChild(listItem);*/
+                    }
                 }
+            },
+            error : function () {
+                alertUser("error", "Error in data loading", "An error occourred while loading the post-it");
             }
-        })
+        });
 }
 
 function deleteEl() {
@@ -257,7 +261,7 @@ function postPostIt(dataToSend) {
             purgeList();
             //loads the data from db
             loadInitialData();
-            alertUser("success", "Data saved!", "Your data was correctly saved");
+            alertUser("success", "Data saved!", "Your data was successfully saved");
         },
         error : function (response){
             alertUser("error", "Error in data upload", "An error occourred while saving your data");
