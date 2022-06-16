@@ -12,10 +12,11 @@
         public $assignedToName;
         public $priorityID;
         public $priorityLabel;
+        public $postStatus;
 
         public function __construct($newID, $newTitle, $newDesc, $newDate, 
                                         $newDeadline, $newCreator, $newCreatorName, $newAssigned, 
-                                        $newAssignedName, $newPrio, $newPrioLabel) {
+                                        $newAssignedName, $newPrio, $newPrioLabel, $newStatus) {
 
             $this->id = $newID;
             $this->title = $newTitle;
@@ -28,6 +29,7 @@
             $this->assignedToName = $newAssignedName;
             $this->priorityID = $newPrio;
             $this->priorityLabel = $newPrioLabel;
+            $this->postStatus = $newStatus;
 
         }
     }

@@ -29,7 +29,26 @@ function isValidTimeStamp($var) {
     $timeStamp = new DateTime();
     $timeStamp->format("Y-m-d H:i:s");
     return ($d && $d > $timeStamp);
-    //die($d && $d->format("Y-m-d H:i:s") == $var);
+}
+
+function isValidDate($dateString) {
+    try {
+        $d = new DateTime($dateString);
+    } catch (\Throwable $th) {
+        return false;
+    }
+    return ($d && $d < new DateTime());
+}
+
+function isValidEmail($emailString) {
+    return filter_var($emailString, FILTER_VALIDATE_EMAIL);
+}
+
+function isValidPwd($pwdString) {
+    //echo $pwdString;
+    return (strlen($pwdString) > 8 && preg_match("#[0-9]+#", $pwdString)
+                && preg_match("#[A-Z]+#", $pwdString) && preg_match("#[a-z]+#", $pwdString)
+                && preg_match("/[!&_@#%^()<>?]+/", $pwdString));
 }
 
 function checkRequestMethod($shouldBe) {
@@ -54,7 +73,7 @@ function appendPostIt($queryOutput) {
         array_push($resultSet,new PostIt($row["postIt_ID"], $row["title"], $row["descr"],
                                                 $row["postTimeStamp"], $row["deadline"], $row["createdBy_userID"],
                                                 $row["creatorName"], $row["assignedTo_userID"], $row["assignedName"],
-                                                $row["fk_priorityID"],$row["prioLabel"]));
+                                                $row["fk_priorityID"],$row["prioLabel"], $row["postStatus"]));
                                                 
     }
 
