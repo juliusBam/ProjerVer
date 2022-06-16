@@ -9,6 +9,10 @@
       }
     }
   ?>
+  <div class="contianer">
+    <h1>Welcome to Test Index!</h1>
+  </div>
+  <img src="../img/office_banner.jpg" class="img-fluid" alt="Responsive image" width="460"></img>
   </body>
 </html>
  
