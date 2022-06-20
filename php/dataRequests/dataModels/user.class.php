@@ -25,7 +25,7 @@
             $this->email = $newEmail;
             $this->type = $newType;
             $this->createdOn = $newCreatedOn;
-            $this->status= $newStatus;
+            $this->status = $newStatus;
 
         }
 

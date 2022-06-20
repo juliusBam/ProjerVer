@@ -17,9 +17,13 @@ $neededPwd = false;
 
 $resultSet = null;
 
-(isset($_GET["id"]) && $_GET["id"] != "") ? $neededId = $_GET["id"] : $neededId = false;
+$inactive = false;
 
-(isset($_GET["pwd"]) && $_GET["pwd"] != "") ? $neededPwd = $_GET["pwd"] : $neededPwd = false;
+(isset($_GET["id"]) && isValidID($_GET["id"])) ? $neededId = $_GET["id"] : $neededId = false;
+
+(isset($_GET["pwd"]) && isValidString($_GET["pwd"])) ? $neededPwd = $_GET["pwd"] : $neededPwd = false;
+
+(isset($_GET["inactive"]) && $_GET["inactive"] == "1") ? $inactive = true : $inactive = false;
 
 include_once("../apiDbConnection.php");
 
@@ -36,7 +40,7 @@ try {
                                     JOIN 
                                         roles on users.fk_roleID = roles.roleID
                                 WHERE
-                                    userID = :uID AND pwd = :hashPwd 
+                                    userID = :uID AND pwd = :hashPwd AND status = 1
                                 LIMIT 1");
     
         $query->bindParam("uID", $neededId, PDO::PARAM_INT);
@@ -80,23 +84,45 @@ try {
     
             $resultSet = new UserData($queryRes["userID"], $queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
                                         $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
-                                        $queryRes["roleLabel"], $queryRes["creationTimeStamp"],$queryRes["status"]);
-    
-        }
-    
-        if ($resultSet == null) {
-    
-            $resultSet = "noUser";
+                                        $queryRes["roleLabel"], $queryRes["creationTimeStamp"], $queryRes["status"]);
+
     
         }
     
     
+    } else if ($inactive) {
+
+        $query = $db->prepare("SELECT * 
+                                FROM users 
+                                    JOIN 
+                                        roles on users.fk_roleID = roles.roleID
+                                    WHERE status = 0");
+        
+        $query->execute();
+        $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+        if (count($queryRes) > 0) {
+    
+            //the result set has to become an array in order to push every found dataset into it
+            $resultSet = array();
+    
+            foreach($queryRes as $row) {
+    
+                array_push($resultSet,new UserData($row["userID"], $row["userName"], $row["firstName"], $row["secondName"],
+                                                        $row["gender"], $row["birthdate"], $row["userEmail"],
+                                                        $row["roleLabel"], $row["creationTimeStamp"], $row["status"]));
+                                                        
+            }
+        }
+
+
     } else {
     
         $query = $db->prepare("SELECT * 
                                 FROM users 
                                     JOIN 
-                                        roles on users.fk_roleID = roles.roleID");
+                                        roles on users.fk_roleID = roles.roleID
+                                    WHERE status = 1");
         
         $query->execute();
         $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -115,12 +141,6 @@ try {
             }
         }
     
-        if ($resultSet == null) {
-    
-            $resultSet = "noUser";
-    
-        }
-    
     }
 
 } catch (\Throwable $th) {
@@ -132,16 +152,12 @@ try {
 switch ($resultSet) {
 
     case "wrongPass":
-        response("GET", 400, "Wrong password");
-        break;
-    case "noUser":
-        response("GET", 400, "User not found");
-        break;
-    case false:
-        response("GET", 400, "An error occoured");
+        response("GET", 200, "Wrong password");
         break;
     case null:
-        response("GET", 400, "Empty");
+        response("GET", 200, "No users found");
+    case false:
+        response("GET", 400, "Bad request");
     default:
         response("GET", 200, $resultSet);
 }

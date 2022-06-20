@@ -51,7 +51,7 @@ include_once "../apiFunctions.php";
 
             $stmt->execute();
 
-            response("GET", 200, "Success");
+            response("GET", 201, "Success");
 
         } catch (\Throwable $th) {
 
