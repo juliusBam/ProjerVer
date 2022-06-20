@@ -130,9 +130,9 @@ function postPriority()
             label: labelInput
         }
     }).done(function (response) {
-        alert(response);
+        alertUser("success", "Label created!", "Your label was successfully created");
     }).fail(function (response){
-        console.log(response);
+        alertUser("error", "Error while creating label!", "The entered label exists already");
     });
 }
 function postRole()
@@ -146,9 +146,9 @@ function postRole()
             label: labelInput
         }
     }).done(function (response) {
-        alert(response);
+        alertUser("success", "Role created!", "Your role was successfully created");
     }).fail(function (response){
-        console.log(response);
+        alertUser("error", "Error while creating role!", "The entered role exists already");
     });
 }
 function postUser()
@@ -168,9 +168,9 @@ function postUser()
             roleID: $("#roleSelect").val(),
         }
     }).done(function (response) {
-        alert(response);
+        alertUser("success", "User created!", "The user was successfully created");
     }).fail(function (response){
-        console.log(response.responseJSON);
+        alertUser("error", "Error while creating user!", response.responseJSON);
     });  
 }
 

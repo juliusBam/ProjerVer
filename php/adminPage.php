@@ -1,4 +1,6 @@
 <?php include('../php/include/header.php')?>
+<?php include('include/modals.inc.php');?>
+    <script src="../javaScript/userAlerts.js" type="text/javascript"></script>
 <script src="../javaScript/scriptAdminPage.js" type="text/javascript"></script>
 <script src="../javaScript/functionsAdminPage.js" type="text/javascript"></script>
 <h3 class="text-left">Admin Page</h3>
@@ -14,24 +16,26 @@
         </ul>
 </div>
 <div class="container">
-    <form>
-     <div class="form-group pt-2" id="newPriorityForm">
+    
+    <form onsubmit="postPriority();return false">
+        <div class="form-group pt-2" id="newPriorityForm">
             <h2 class="text-left pl-5 pt-1">Create new priority</h3>
             <label for="priority">Name for priority</label>
             <input type="text" class="form-control w-50" id="priority" placeholder="Enter a new priority" required>
             <br>
-            <button class="btn btn-outline-success" onclick="postPriority()">Create priority now</button>
+            <button class="btn btn-outline-success" type="submit">Create priority now</button>
         </div>
     </form>
-    <form>
-     <div class="form-group pt-2" id="newRoleForm">
+    <form onsubmit="postRole();return false">
+        <div class="form-group pt-2" id="newRoleForm">
             <h2 class="text-left pl-5 pt-1">Create new role</h3>
             <label for="role">Name for role</label>
             <input type="text" class="form-control w-50" id="role" placeholder="Enter a new role" required>
             <br>
-            <button class="btn btn-outline-success" type="submit" onclick="postRole()">Create role now</button>
+            <button class="btn btn-outline-success" type="submit">Create role now</button>
         </div>
     </form>
+    <form onsubmit="postUser();return false">
         <div class="form-group pt-2"  id="newUserForm">
             <h2 class="text-left pl-5 pt-2">Create new user</h3>
             <label for="username">Username</label>
@@ -58,19 +62,21 @@
             <select type="text" class="form-control w-50" id="roleSelect" required>
             </select>    
             <br>
-            <button class="btn btn-outline-success" type="submit" onclick="postUser()">Create user now</button>
+            <button class="btn btn-outline-success" type="submit">Create user now</button>
         </div>
-    <form>
+    </from>
+    <form onsubmit="deleteUser();return false">
         <div class="form-group pt-2" id="deleteUserForm">
             <h2 class="text-left pl-5 pt-1">Delete user</h3>
             <label for="delUserSelect">Select user</label>
             <select type="text" class="form-control w-50" id="delUserSelect" required>
             </select> 
             <br>
-            <button class="btn btn-outline-danger" type="submit" onclick="deleteUser()">Delete user now</button>
+            <button class="btn btn-outline-danger" type="submit">Delete user now</button>
         </div>
     </form>
-    <form>
+        
+
         <div class="form-group pt-2" id="deletePriorityForm">
             <h2 class="text-left pl-5 pt-1">Delete priority</h3>
             <label for="delPrioritySelect">Select priority</label>
@@ -79,8 +85,7 @@
             <br>
             <button class="btn btn-outline-danger" type="submit" onclick="deletePriority()">Delete priority now</button>
         </div>
-    </form>
-    <form>
+
         <div class="form-group pt-2" id="deleteRoleForm">
             <h2 class="text-left pl-5 pt-1">Delete role</h3>
             <label for="delRoleSelect">Select role</label>
@@ -89,7 +94,6 @@
             <br>
             <button class="btn btn-outline-danger" type="submit" onclick="deleteRole()">Delete role now</button>
         </div>
-    </form>
 </div>
 </body>
 </html>
