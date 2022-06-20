@@ -65,35 +65,30 @@
             <button class="btn btn-outline-success" type="submit">Create user now</button>
         </div>
     </from>
-    <form onsubmit="deleteUser();return false">
-        <div class="form-group pt-2" id="deleteUserForm">
+    <div class="form-group pt-2" id="deleteUserForm">
             <h2 class="text-left pl-5 pt-1">Delete user</h3>
             <label for="delUserSelect">Select user</label>
-            <select type="text" class="form-control w-50" id="delUserSelect" required>
+            <select type="text" class="form-control w-50" id="delUserSelect">
             </select> 
             <br>
-            <button class="btn btn-outline-danger" type="submit">Delete user now</button>
-        </div>
-    </form>
-        
-
-        <div class="form-group pt-2" id="deletePriorityForm">
-            <h2 class="text-left pl-5 pt-1">Delete priority</h3>
-            <label for="delPrioritySelect">Select priority</label>
-            <select type="text" class="form-control w-50" id="delPrioritySelect" required>
-            </select> 
-            <br>
-            <button class="btn btn-outline-danger" type="submit" onclick="deletePriority()">Delete priority now</button>
-        </div>
-
-        <div class="form-group pt-2" id="deleteRoleForm">
-            <h2 class="text-left pl-5 pt-1">Delete role</h3>
-            <label for="delRoleSelect">Select role</label>
-            <select type="text" class="form-control w-50" id="delRoleSelect" required>
-            </select> 
-            <br>
-            <button class="btn btn-outline-danger" type="submit" onclick="deleteRole()">Delete role now</button>
-        </div>
+            <button class="btn btn-outline-danger" type="button" onclick="deleteUser()">Delete user now</button>
+    </div>
+    <div class="form-group pt-2" id="deletePriorityForm">
+        <h2 class="text-left pl-5 pt-1">Delete priority</h3>
+        <label for="delPrioritySelect">Select priority</label>
+        <select type="text" class="form-control w-50" id="delPrioritySelect">
+        </select> 
+        <br>
+        <button class="btn btn-outline-danger"type="button"  onclick="deletePriority()">Delete priority now</button>
+    </div> 
+    <div class="form-group pt-2" id="deleteRoleForm">
+        <h2 class="text-left pl-5 pt-1">Delete role</h3>
+        <label for="delRoleSelect">Select role</label>
+        <select type="text" class="form-control w-50" id="delRoleSelect">
+        </select> 
+        <br>
+        <button class="btn btn-outline-danger" type="button" onclick="deleteRole()">Delete role now</button>
+    </div>
 </div>
 </body>
 </html>

@@ -51,7 +51,7 @@ try {
     
             $resultSet = new UserData($queryRes["userID"], $queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
                                         $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
-                                        $queryRes["roleLabel"], $queryRes["creationTimeStamp"]);
+                                        $queryRes["roleLabel"], $queryRes["creationTimeStamp"], $queryRes["status"]);
     
         }
     
@@ -80,7 +80,7 @@ try {
     
             $resultSet = new UserData($queryRes["userID"], $queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
                                         $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
-                                        $queryRes["roleLabel"], $queryRes["creationTimeStamp"]);
+                                        $queryRes["roleLabel"], $queryRes["creationTimeStamp"],$queryRes["status"]);
     
         }
     
@@ -110,7 +110,7 @@ try {
     
                 array_push($resultSet,new UserData($row["userID"], $row["userName"], $row["firstName"], $row["secondName"],
                                                         $row["gender"], $row["birthdate"], $row["userEmail"],
-                                                        $row["roleLabel"], $row["creationTimeStamp"]));
+                                                        $row["roleLabel"], $row["creationTimeStamp"], $row["status"]));
                                                         
             }
         }

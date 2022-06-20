@@ -8,10 +8,14 @@ function populateDeleteUsers(selectToAppendTo) {
     .done( function (response) {
         
         for(var i=0; i<response.length;i++) {
-            let newOption = $("<option>");
-            newOption.val(response[i].uID);
-            newOption.html(response[i].uName + " | " + response[i].firstName + " " + response[i].secondName);
-            selectToAppendTo.append(newOption);
+            if(response[i].status!=0)
+            {
+                let newOption = $("<option>");
+                newOption.val(response[i].uID);
+                newOption.html(response[i].uName + " | " + response[i].firstName + " " + response[i].secondName);
+                selectToAppendTo.append(newOption);   
+            }
+            
         }
     })
     .fail( function (errorThrown, response) {
@@ -72,8 +76,10 @@ function deleteUser()
             id: idInput
         },
         success: function(result) {
-            console.log(result);
+            alertUser("success", "User deleted!", "The user was successfully deleted");
         }
+    }).fail(function(response){
+        alertUser("error", "Error while deleting user!", response);
     });
 }
 function deletePriority()
@@ -87,8 +93,10 @@ function deletePriority()
             id: idInput
         },
         success: function(result) {
-            console.log(result);
+            alertUser("success", "Priority deleted!", "The priority was successfully deleted");
         }
+    }).fail(function(response){
+            alertUser("error", "Error while deleting priority!", "The priority is currently assigned to an active Todo");
     });
 }
 function deleteRole()
@@ -102,8 +110,10 @@ function deleteRole()
             id: idInput
         },
         success: function(result) {
-            console.log(result);
+            alertUser("success", "Role deleted!", "The role was successfully deleted");
         }
+    }).fail(function(response){
+            alertUser("error", "Error while deleting role!", "The role is currently assigned to an active user");
     });
 }
 function hideAllDivs()
@@ -130,9 +140,9 @@ function postPriority()
             label: labelInput
         }
     }).done(function (response) {
-        alertUser("success", "Label created!", "Your label was successfully created");
+        alertUser("success", "Priority created!", "Your priority was successfully created");
     }).fail(function (response){
-        alertUser("error", "Error while creating label!", "The entered label exists already");
+        alertUser("error", "Error while creating priority!", "The entered priority exists already");
     });
 }
 function postRole()

@@ -24,13 +24,12 @@ include_once("../apiFunctions.php");
         if ($neededId) {
 
             
-            $query = $db->prepare("DELETE 
-                                    FROM 
+            $query = $db->prepare("UPDATE  
                                         Users
+                                    SET
+                                        status = 0
                                     WHERE
                                         userID  =  $neededId;");
-    
-    
     
             $query->execute();
 
