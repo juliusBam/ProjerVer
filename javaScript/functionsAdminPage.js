@@ -34,7 +34,15 @@ function populateExistingUsers(selectToAppendTo)
     .done( function (response) {
         
         for(var i=0; i<response.length;i++) {
-            document.getElementById('existingUsers').innerHTML += response[i].uName + " | " + response[i].firstName + " " + response[i].secondName + "\n";
+            let userEntry = response[i].uName + " | " + response[i].firstName + " " + response[i].secondName;
+            if(response[i].status==1)
+            {
+                document.getElementById('existingUsers').innerHTML += userEntry+ "\n";
+            }
+            else{
+                document.getElementById('existingUsers').innerHTML += userEntry+ " (currently deactivated)" +"\n";
+            }
+            
         }
     })
     .fail( function (errorThrown, response) {
