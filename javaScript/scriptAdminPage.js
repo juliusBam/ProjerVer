@@ -1,6 +1,9 @@
 $(document).ready(function(){
     hideAllDivs();
     populateDeleteUsers($("#delUserSelect"));
+    populateExistingUsers();
+    populateExistingPriorities();
+    populateExistingRoles();
     populateDeleteProirities($("#delPrioritySelect"));
     populateDeleteRoles($("#roleSelect"));
     populateDeleteRoles($("#delRoleSelect"));

@@ -23,6 +23,63 @@ function populateDeleteUsers(selectToAppendTo) {
         alert(errorThrown + "\n" + response);
     });
 }
+function populateExistingUsers(selectToAppendTo)
+{
+    $.ajax({
+        'url': '../api/users/getUsers.php',
+        'type': 'GET',
+        'cache': false,
+        'dataType': 'json',
+    })
+    .done( function (response) {
+        
+        for(var i=0; i<response.length;i++) {
+            document.getElementById('existingUsers').innerHTML += response[i].uName + " | " + response[i].firstName + " " + response[i].secondName + "\n";
+        }
+    })
+    .fail( function (errorThrown, response) {
+        //TODO add an error reporting
+        alert(errorThrown + "\n" + response);
+    });  
+}
+function populateExistingPriorities()
+{
+    $.ajax({
+        'url': '../api/priorities/getPriorities.php',
+        'type': 'GET',
+        'cache': false,
+        'dataType': 'json',
+    })
+    .done( function (response) {
+        
+        for(var i=0; i<response.length;i++) {
+            document.getElementById('existingPriorities').innerHTML += response[i].label + "\n";
+        }
+    })
+    .fail( function (errorThrown, response) {
+        //TODO add an error reporting
+        alert(errorThrown + "\n" + response);
+    });  
+}
+function populateExistingRoles()
+{
+    $.ajax({
+        'url': '../api/roles/getRoles.php',
+        'type': 'GET',
+        'cache': false,
+        'dataType': 'json',
+    })
+    .done( function (response) {
+        
+        for(var i=0; i<response.length;i++) {
+            document.getElementById('existingRoles').innerHTML += response[i].label + "\n";
+        }
+    })
+    .fail( function (errorThrown, response) {
+        //TODO add an error reporting
+        alert(errorThrown + "\n" + response);
+    });
+}
 function populateDeleteProirities(selectToAppendTo) {
     $.ajax({
         'url': '../api/priorities/getPriorities.php',
