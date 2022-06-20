@@ -46,10 +46,9 @@ function isValidEmail($emailString) {
 
 function isValidPwd($pwdString) {
     //echo $pwdString;
-    /*return (strlen($pwdString) > 8 && preg_match("#[0-9]+#", $pwdString)
+    return (strlen($pwdString) > 8 && preg_match("#[0-9]+#", $pwdString)
                 && preg_match("#[A-Z]+#", $pwdString) && preg_match("#[a-z]+#", $pwdString)
-                && preg_match("/[!&_@#%^()<>?]+/", $pwdString));*/
-    return true;
+                && preg_match("/[!&_@#%^()<>?]+/", $pwdString));
 }
 
 function checkRequestMethod($shouldBe) {
