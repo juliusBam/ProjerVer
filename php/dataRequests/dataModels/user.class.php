@@ -11,9 +11,10 @@
         public $email;
         public $type;
         public $createdOn;
+        public $status;
 
         public function __construct($newUserID, $newUserName, $newFirstName, $newSecondName, $newGender, $newBirthdate,
-                                    $newEmail, $newType, $newCreatedOn) {
+                                    $newEmail, $newType, $newCreatedOn, $newStatus) {
 
             $this->uID = $newUserID;
             $this->uName = $newUserName;
@@ -24,6 +25,7 @@
             $this->email = $newEmail;
             $this->type = $newType;
             $this->createdOn = $newCreatedOn;
+            $this->status = $newStatus;
 
         }
 
