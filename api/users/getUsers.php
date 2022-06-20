@@ -85,6 +85,7 @@ try {
             $resultSet = new UserData($queryRes["userID"], $queryRes["userName"], $queryRes["firstName"], $queryRes["secondName"],
                                         $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
                                         $queryRes["roleLabel"], $queryRes["creationTimeStamp"], $queryRes["status"]);
+
     
         }
     

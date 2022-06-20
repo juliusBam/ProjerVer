@@ -92,6 +92,6 @@ include_once "../apiFunctions.php";
         response("GET", 400, $th->getMessage());
     }
 
-    response("GET", 200, "Okkey");
+    response("GET", 200, "User created");
 
 ?>
