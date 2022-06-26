@@ -1,14 +1,12 @@
 
 //
-$(document).ready(function(){
-    $( "#personalList" ).sortable();
-    $( "#externalList" ).sortable();
+$(document).ready(function() {
     $("#divCreateTodo").hide();
     loadInitialData();
     //alertUser("success", "Cool you did it", "Your operation was successful");
     //------- alex's old Code ??
 
-    $("#listContainer").sortable();
+    //$("#listContainer").sortable();
     $("#btnHide").removeClass("hiddenBtn");
     //$(document).on("click", ".delete", deleteEl);
     $(document).on("click", "#inputTitle", hideErrorsTit);

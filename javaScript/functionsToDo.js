@@ -233,14 +233,14 @@ function hideList() {
     container1.appendChild(col2);
     listEl.appendChild(container1);
     $("#listContainer").append(listEl);
-}
+}*/
 
 function purgeList() {
     $("#personalList > .list-group-item").remove();
     $("#externalList > .list-group-item").remove();
     $("#personalListPast > .list-group-item").remove();
     $("#externalListPast > .list-group-item").remove();
-}*/
+}
 
 function postPostIt(dataToSend) {
     //data to send is the array
@@ -312,16 +312,7 @@ function populatePrios(selectToAppendTo) {
 
 function appendListElToEl(elID, response) {
     var listItem = document.createElement("li");
-    $(listItem).css("cursor", "pointer");
-    listItem.onclick = function() {
-        let elToToggle = $(this).find(".infoContainer");
-        if ($(elToToggle).is(":visible")) {
-            elToToggle.hide();
-        } else {
-            elToToggle.show();
-        }
-        
-    }
+
     listItem.setAttribute("class", "list-group-item");
     let itemContainer = document.createElement("div");
     $(itemContainer).addClass("infoContainer");
@@ -330,8 +321,17 @@ function appendListElToEl(elID, response) {
     //####BEGIN title creation
     let title = document.createElement("h5");
     title.innerHTML = response.title;
-    $(title).addClass("text-success");
     listItem.appendChild(title);
+
+    $(title).css("cursor", "pointer");
+    title.onclick = function() {
+        let elToToggle = $(this).next(".infoContainer");
+        if ($(elToToggle).is(":visible")) {
+            elToToggle.hide();
+        } else {
+            elToToggle.show();
+        }
+    }
 
     let priority = document.createElement("div");
     $(priority).addClass("text-bold");
@@ -374,8 +374,38 @@ function appendListElToEl(elID, response) {
     dateRow.appendChild(assignedCol);
     itemContainer.appendChild(userRow);
 
-    //TODO add button to change status
-
+    //If tickets are still open
+    if (response.postStatus == 0) {
+        $(title).addClass("text-success");
+        $(title).addClass("text-bold");
+        console.log(title);
+        let buttonChange = document.createElement("button");
+        $(buttonChange).addClass("btn btn-success");
+        $(buttonChange).text("Close ticket!");
+        $(buttonChange).attr("postID", response.id);
+        buttonChange.onclick = function () {
+            $.ajax({
+                type: "POST",
+                url: "../api/todo/updatePostIt.php",
+                data: {
+                    postID: $(this).attr("postID"),
+                    newStatus: 1
+                },
+                success: function (response) {
+                    alertUser("success","Post closed", "The post was successfully closed");
+                    purgeList();
+                    loadInitialData();
+                },
+                error: function (response) {
+                    alertUser("error", "An error occourred", response.statusText);
+                }
+            });
+        }
+        itemContainer.appendChild(buttonChange);
+    } else {
+        $(title).addClass("text-danger");
+        $(title).css("text-decoration", "Line-Through");
+    }
 
     listItem.appendChild(itemContainer);
     //listItem.innerHTML = response.title;
