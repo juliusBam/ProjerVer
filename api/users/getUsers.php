@@ -40,10 +40,10 @@ try {
                                     JOIN 
                                         roles on users.fk_roleID = roles.roleID
                                 WHERE
-                                    userID = :uID AND pwd = :hashPwd AND status = 1
+                                    userName = :uID AND pwd = :hashPwd AND status = 1
                                 LIMIT 1");
     
-        $query->bindParam("uID", $neededId, PDO::PARAM_INT);
+        $query->bindParam("uID", $neededId, PDO::PARAM_STR);
         $query->bindParam("hashPwd", $pwdToSearchFor, PDO::PARAM_STR);
     
     
