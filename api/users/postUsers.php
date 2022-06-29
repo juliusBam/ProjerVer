@@ -19,7 +19,7 @@ include_once "../apiFunctions.php";
     $newPwd;
     $newRoleID;
     
-    //check the post of the vars
+    //check the post of the vars --> if not valid the script will return an error
     (isset($_POST["username"]) && isValidString($_POST["username"])) ? $newUserName = $_POST["username"] : response("GET", 400, "Invalid username");
     (isset($_POST["firstName"]) && isValidString($_POST["firstName"])) ? $newFirstName = $_POST["firstName"] : response("GET", 400, "Invalid first name");
     (isset($_POST["secondName"]) && isValidString($_POST["secondName"])) ? $newSecondName = $_POST["secondName"] : response("GET", 400, "Invalid second name");
@@ -69,7 +69,7 @@ include_once "../apiFunctions.php";
             response("GET", 400, "Email is not unique");
         }
 
-
+        //the query to prepare
         $queryAddUser = "INSERT 
                     INTO users 
                         (userName, firstName, secondName, userEmail, gender, birthdate, pwd, fk_roleID)
@@ -77,6 +77,8 @@ include_once "../apiFunctions.php";
                         (:newUserName, :newFirstName, :newSecondName, :newEmail, :newGender, :newBirthdate, :newPwd, :newRole)";
 
         $smtAddUser = $db->prepare($queryAddUser);
+
+        //now the params are binded
         $smtAddUser->bindParam("newUserName", $newUserName, PDO::PARAM_STR);
         $smtAddUser->bindParam("newFirstName", $newFirstName, PDO::PARAM_STR);
         $smtAddUser->bindParam("newSecondName", $newSecondName, PDO::PARAM_STR);
@@ -92,6 +94,7 @@ include_once "../apiFunctions.php";
         response("GET", 400, $th->getMessage());
     }
 
+    //this block is reachable only if no exceptions are thrown and the params are correct
     response("GET", 200, "User created");
 
 ?>
