@@ -1,5 +1,7 @@
+<!-- Include the navbar and the Modals php for further use-->
 <?php include('../php/include/header.php')?>
 <?php include('include/modals.inc.php');?>
+<!-- all needed JS Files-->
 <script src="../javaScript/userAlerts.js" type="text/javascript"></script>
 <script src="../javaScript/scriptAdminPage.js" type="text/javascript"></script>
 <script src="../javaScript/functionsAdminPage.js" type="text/javascript"></script>

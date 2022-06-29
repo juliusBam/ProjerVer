@@ -1,4 +1,5 @@
 function populateDeleteUsers(selectToAppendTo) {
+    //AJAX call to get all users from database
     $.ajax({
         'url': '../api/users/getUsers.php',
         'type': 'GET',
@@ -6,7 +7,7 @@ function populateDeleteUsers(selectToAppendTo) {
         'dataType': 'json',
     })
     .done( function (response) {
-        
+        //if the ajax is finished go through the response array and create and add one option per existing user
         for(var i=0; i<response.length;i++) {
             if(response[i].status!=0)
             {
@@ -19,12 +20,13 @@ function populateDeleteUsers(selectToAppendTo) {
         }
     })
     .fail( function (errorThrown, response) {
-        //TODO add an error reporting
+        //If the AJAX wasnt successfull throw an error
         alert(errorThrown + "\n" + response);
     });
 }
-function populateExistingUsers(selectToAppendTo)
+function populateExistingUsers()
 {
+    //AJAX call to get all users from database
     $.ajax({
         'url': '../api/users/getUsers.php',
         'type': 'GET',
@@ -32,7 +34,8 @@ function populateExistingUsers(selectToAppendTo)
         'dataType': 'json',
     })
     .done( function (response) {
-        
+        //if the ajax is finished go through the response array and add the found users to the corrosponding Textarea
+        console.log(response);
         for(var i=0; i<response.length;i++) {
             let userEntry = response[i].uName + " | " + response[i].firstName + " " + response[i].secondName;
             if(response[i].status==1)
@@ -46,12 +49,13 @@ function populateExistingUsers(selectToAppendTo)
         }
     })
     .fail( function (errorThrown, response) {
-        //TODO add an error reporting
+        //If the AJAX wasnt successfull throw an error
         alert(errorThrown + "\n" + response);
     });  
 }
 function populateExistingPriorities()
 {
+    //AJAX call to get all priorities from the database
     $.ajax({
         'url': '../api/priorities/getPriorities.php',
         'type': 'GET',
@@ -59,18 +63,19 @@ function populateExistingPriorities()
         'dataType': 'json',
     })
     .done( function (response) {
-        
+        //add all found priorities to the corr. Textarea
         for(var i=0; i<response.length;i++) {
             document.getElementById('existingPriorities').innerHTML += response[i].label + "\n";
         }
     })
     .fail( function (errorThrown, response) {
-        //TODO add an error reporting
+        //If the AJAX wasnt successfull throw an error
         alert(errorThrown + "\n" + response);
     });  
 }
 function populateExistingRoles()
 {
+    //get all existing roles from the DB with an AJAX
     $.ajax({
         'url': '../api/roles/getRoles.php',
         'type': 'GET',
@@ -78,17 +83,18 @@ function populateExistingRoles()
         'dataType': 'json',
     })
     .done( function (response) {
-        
+        //add all roles to the corr. Textarea
         for(var i=0; i<response.length;i++) {
             document.getElementById('existingRoles').innerHTML += response[i].label + "\n";
         }
     })
     .fail( function (errorThrown, response) {
-        //TODO add an error reporting
+        //If the AJAX wasnt successfull throw an error
         alert(errorThrown + "\n" + response);
     });
 }
 function populateDeleteProirities(selectToAppendTo) {
+    //get all priorities from the db
     $.ajax({
         'url': '../api/priorities/getPriorities.php',
         'type': 'GET',
@@ -96,7 +102,7 @@ function populateDeleteProirities(selectToAppendTo) {
         'dataType': 'json',
     })
     .done( function (response) {
-        
+        //create new Options and add to the select
         for(var i=0; i<response.length;i++) {
             let newOption = $("<option>");
             newOption.val(response[i].id);
@@ -105,7 +111,7 @@ function populateDeleteProirities(selectToAppendTo) {
         }
     })
     .fail( function (errorThrown, response) {
-        //TODO add an error reporting
+       //If the AJAX wasnt successfull throw an error
         alert(errorThrown + "\n" + response);
     });
 }
@@ -132,7 +138,9 @@ function populateDeleteRoles(selectToAppendTo) {
 }
 function deleteUser()
 {
+    //get the index of the selected option
     var idInput = $("#delUserSelect").val();
+    //make an AJAX call to delete the user - for simpler understanding it is implemented as GET Call
      $.ajax({
         'url': '../api/users/deleteUsers.php',
         'type': 'GET',
@@ -140,16 +148,20 @@ function deleteUser()
         data: {
             id: idInput
         },
+        //if successfull call the alertUser function which creates an model with the messages provided as parameters
         success: function(result) {
             alertUser("success", "User deleted!", "The user was successfully deleted");
         }
+        // the same as above only that it is an error message
     }).fail(function(response){
         alertUser("error", "Error while deleting user!", response);
     });
 }
 function deletePriority()
 {
+    //get the index of the selected option
     var idInput = $("#delPrioritySelect").val();
+    //make an AJAX call to delete the user - for simpler understanding it is implemented as GET Call
      $.ajax({
         'url': '../api/priorities/deletePriorities.php',
         'type': 'GET',
@@ -157,16 +169,20 @@ function deletePriority()
         data: {
             id: idInput
         },
+        //if successfull call the alertUser function which creates an model with the messages provided as parameters
         success: function(result) {
             alertUser("success", "Priority deleted!", "The priority was successfully deleted");
         }
+        // the same as above only that it is an error message
     }).fail(function(response){
             alertUser("error", "Error while deleting priority!", "The priority is currently assigned to an active Todo");
     });
 }
 function deleteRole()
 {
+    //get the index of the selected option
     var idInput = $("#delRoleSelect").val();
+    //make an AJAX call to delete the user - for simpler understanding it is implemented as GET Call
      $.ajax({
         'url': '../api/roles/deleteRoles.php',
         'type': 'GET',
@@ -174,9 +190,11 @@ function deleteRole()
         data: {
             id: idInput
         },
+        //if successfull call the alertUser function which creates an model with the messages provided as parameters
         success: function(result) {
             alertUser("success", "Role deleted!", "The role was successfully deleted");
         }
+        // the same as above only that it is an error message
     }).fail(function(response){
             alertUser("error", "Error while deleting role!", "The role is currently assigned to an active user");
     });
@@ -190,6 +208,7 @@ function hideAllDivs()
     $("#deletePriorityForm").hide();
     $("#deleteRoleForm").hide();
 }
+//easy to call functions to show one given div
 function showDiv(hiddenDiv)
 {
     hideAllDivs();
@@ -197,7 +216,9 @@ function showDiv(hiddenDiv)
 }
 function postPriority()
 {
+    //get the input
     var labelInput = $('#priority').val();
+    //make a POST with ajax, the data comes from the form field
     $.ajax({
         'url': '../api/priorities/postPriorities.php',
         'type': 'POST',
@@ -212,8 +233,9 @@ function postPriority()
 }
 function postRole()
 {
+    //get the input
     var labelInput = $('#role').val();
-    console.log(labelInput);
+    //make a POST with ajax, the data comes from the form field
     $.ajax({
         'url': '../api/roles/postRoles.php',
         'type': 'POST',
@@ -228,6 +250,7 @@ function postRole()
 }
 function postUser()
 {
+    //make a POST with ajax, the data comes from the form fields
     $.ajax({
         'url': '../api/users/postUsers.php',
         'type': 'POST',
