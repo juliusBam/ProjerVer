@@ -1,16 +1,6 @@
-
-//
 $(document).ready(function() {
+    //hides the Form to create new Todos
     $("#divCreateTodo").hide();
+    //get the initial Data from the DB
     loadInitialData();
-    //alertUser("success", "Cool you did it", "Your operation was successful");
-    //------- alex's old Code ??
-
-    //$("#listContainer").sortable();
-    $("#btnHide").removeClass("hiddenBtn");
-    //$(document).on("click", ".delete", deleteEl);
-    $(document).on("click", "#inputTitle", hideErrorsTit);
-    $(document).on("click", "#inputDesc", hideErrorsDesc);
-    $(document).on("click", "#inputPriority", hideErrorsPriority);
-    $(document).on("click", "#btnHide", hideList);
 });

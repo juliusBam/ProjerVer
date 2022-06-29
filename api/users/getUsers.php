@@ -122,7 +122,7 @@ try {
                                 FROM users 
                                     JOIN 
                                         roles on users.fk_roleID = roles.roleID
-                                    WHERE status = 1");
+                                    ");
         
         $query->execute();
         $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
