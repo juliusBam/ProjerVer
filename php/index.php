@@ -16,7 +16,7 @@
     <div class="row title" style="background-color: #e3bbed;">
         <span class="pt-6">
           <h1 class="display-4">Welcome to ProjerVer!</h1>
-          <p class="lead">This is a cool Website to plan tasks.</p>
+          <p class="lead">This is a cool website to plan tasks.</p>
         </span>
     </div>
     <div class="row">
