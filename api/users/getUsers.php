@@ -15,9 +15,13 @@ $neededId = false;
 
 $neededPwd = false;
 
+$neededName = false;
+
 $resultSet = null;
 
 $inactive = false;
+
+(isset($_GET["uName"]) && isValidString($_GET["uName"])) ? $neededName = $_GET["uName"] : $neededName = false;
 
 (isset($_GET["id"]) && isValidID($_GET["id"])) ? $neededId = $_GET["id"] : $neededId = false;
 
@@ -29,7 +33,7 @@ include_once("../apiDbConnection.php");
 
 try {
 
-    if ($neededId && $neededPwd) {
+    if ($neededName && $neededPwd) {
 
         //$pwdToSearchFor = md5($neededPwd);
     
@@ -43,9 +47,9 @@ try {
                                     userName = :uID AND pwd = :hashPwd AND status = 1
                                 LIMIT 1");
     
-        $query->bindParam("uID", $neededId, PDO::PARAM_STR);
+        $query->bindParam("uID", $neededName, PDO::PARAM_STR);
+
         $query->bindParam("hashPwd", $pwdToSearchFor, PDO::PARAM_STR);
-    
     
         $query->execute();
     
