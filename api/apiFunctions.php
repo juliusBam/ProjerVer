@@ -40,6 +40,15 @@ function isValidDate($dateString) {
     return ($d && $d < new DateTime());
 }
 
+function isValidFutureDate($dateString) {
+    try {
+        $d = new DateTime($dateString);
+    } catch (\Throwable $th) {
+        return false;
+    }
+    return ($d);
+}
+
 function isValidEmail($emailString) {
     return filter_var($emailString, FILTER_VALIDATE_EMAIL);
 }

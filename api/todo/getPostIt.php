@@ -23,7 +23,7 @@ $deadlineFuture = false;
 $resultSet = null;
 
 (isset($_GET["postID"]) && isValidID($_GET["postID"])) ? $postID = $_GET["postID"] : $postID = false;
-(isset($_GET["assignedID"]) && isValidID($_GET["assignedID"])) ? $neededId = $_GET["assignedID"] : $neededId = false;
+(isset($_GET["assignedID"]) && isValidID($_GET["assignedID"])) ? $assignedID = $_GET["assignedID"] : $assignedID = false;
 (isset($_GET["creatorID"]) && isValidID($_GET["creatorID"])) ? $creatorID = $_GET["creatorID"] : $creatorID = false;
 (isset($_GET["onlyPast"]) && isValidString($_GET["onlyPast"])) ? $deadlinePast = $_GET["onlyPast"] : $deadlinePast = false;
 (isset($_GET["onlyFuture"]) && isValidString($_GET["onlyFuture"])) ? $deadlineFuture = $_GET["onlyFuture"] : $deadlineFuture = false;
@@ -173,12 +173,12 @@ try {
                         users u1 on postIt.assignedTo_userID = u1.userID
                     JOIN
                         priorities on postIt.fk_priorityID = priorities.priorityID
-                    WHERE createdBy_userID = :neededId AND createdBy_userID <> assignedTo_userID";
+                    WHERE createdBy_userID = :neededId AND createdBy_userID <> assignedTo_userID ";
 
         if ($deadlinePast) {
-            $sql = $sql . " AND deadline < now()";
+            $sql = $sql . " AND deadline < now() ";
         } else if ($deadlineFuture) {
-            $sql = $sql . " AND deadline > now()";
+            $sql = $sql . " AND deadline > now() ";
         }
 
         $sql = $sql . $orderingClause;
@@ -187,9 +187,9 @@ try {
 
         try {
 
-        $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+            //$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
 
-            $query->bindParam("neededID", $postID, PDO::PARAM_INT);
+            $query->bindParam("neededId", $creatorID, PDO::PARAM_INT);
 
             $query->execute();
 
