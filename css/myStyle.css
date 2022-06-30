@@ -38,3 +38,11 @@ p{
   color: black;
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+.underTit {
+  font-size: 20px;
+}
+
+.customListCont {
+  border-radius: 5px;
+}
