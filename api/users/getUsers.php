@@ -44,7 +44,7 @@ $allUsers = false;
 try {
 
     include_once("../apiDbConnection.php");
-
+    //gets a user with a given uName and pwd
     if ($neededName && $neededPwd) {
 
         //hash the recieved pwd
@@ -78,7 +78,7 @@ try {
                                         $queryRes["roleLabel"], $queryRes["creationTimeStamp"], $queryRes["status"]);
     
         }
-    
+    //gets a user with a given id
     } else if ($neededId && $neededPwd == false) {
     
         //prepares the query
@@ -105,7 +105,7 @@ try {
                                         $queryRes["roleLabel"], $queryRes["creationTimeStamp"], $queryRes["status"]);
 
         }
-    
+    //gets only inactive users
     } else if ($inactive) {
 
         //we prepare the query
@@ -135,7 +135,7 @@ try {
             }
         }
 
-
+    //gets all users (active and inactive)
     } else if ($allUsers) {
 
         //prepares the query to execute 
@@ -161,6 +161,7 @@ try {
         }
 
 
+    //gets all the active users
     } else {
     
         //prepares the query to execute 
