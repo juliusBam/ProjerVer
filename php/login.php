@@ -1,5 +1,11 @@
 <?php
     session_start();
+
+    if(isset($_POST['submit'])){
+        $username = htmlentities($_POST['userName']);
+        setcookie('userID', 'userName','fk_roleID', $userId, $username, $fk_roleID, time() + 3600);
+        }
+
 ?>
 <?php include('../php/include/header.php')?>
 <?php include('../php/classes/dbh.classes.php')?>

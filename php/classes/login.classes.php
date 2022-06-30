@@ -3,7 +3,7 @@
 class Login extends Dbh {
 
     protected function getUser($uid, $pwd) {
-        $stmt = $this->connect()->prepare('SELECT pwd FROM users WHERE userName = ? OR userEmail = ?;');
+        $stmt = $this->connect()->prepare('SELECT pwd FROM users WHERE userName = ? OR userEmail = ? AND status = 1;');
 
         if(!$stmt->execute(array($uid, $pwd))) {
             $stmt = null;
