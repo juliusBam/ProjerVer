@@ -7,6 +7,7 @@ $(document).ready(function(){
     $(".content").mouseover(function(){
         $(this).children().fadeIn(1000);
     });
+    //if the mouse moves out of range the just shown information gets hidden again
     $(".content").mouseout(function(){
         $(this).children().hide();
     });
