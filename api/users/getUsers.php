@@ -25,6 +25,8 @@ $resultSet = null;
 
 $inactive = false;
 
+$allUsers = false;
+
 //checks if the parameters are valid, if yes they get the passed value
 
 (isset($_GET["uName"]) && isValidString($_GET["uName"])) ? $neededName = $_GET["uName"] : $neededName = false;
@@ -34,6 +36,8 @@ $inactive = false;
 (isset($_GET["pwd"]) && isValidString($_GET["pwd"])) ? $neededPwd = $_GET["pwd"] : $neededPwd = false;
 
 (isset($_GET["inactive"]) && $_GET["inactive"] == "1") ? $inactive = true : $inactive = false;
+
+(isset($_GET["allUsers"]) && $_GET["allUsers"] == "1") ? $allUsers = true : $allUsers = false;
 
 
 //once the parameters are set we can go on with the data fetching
@@ -100,9 +104,7 @@ try {
                                         $queryRes["gender"], $queryRes["birthdate"], $queryRes["userEmail"],
                                         $queryRes["roleLabel"], $queryRes["creationTimeStamp"], $queryRes["status"]);
 
-    
         }
-    
     
     } else if ($inactive) {
 
@@ -126,6 +128,31 @@ try {
     
             foreach($queryRes as $row) {
     
+                array_push($resultSet,new UserData($row["userID"], $row["userName"], $row["firstName"], $row["secondName"],
+                                                        $row["gender"], $row["birthdate"], $row["userEmail"],
+                                                        $row["roleLabel"], $row["creationTimeStamp"], $row["status"]));
+                                                        
+            }
+        }
+
+
+    } else if ($allUsers) {
+
+        //prepares the query to execute 
+            $query = $db->prepare("SELECT * 
+                                    FROM users 
+                                        JOIN roles on users.fk_roleID = roles.roleID");
+
+        $query->execute();
+        $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($queryRes) > 0) {
+
+            //the result set has to become an array in order to push every found dataset into it
+            $resultSet = array();
+
+            foreach($queryRes as $row) {
+
                 array_push($resultSet,new UserData($row["userID"], $row["userName"], $row["firstName"], $row["secondName"],
                                                         $row["gender"], $row["birthdate"], $row["userEmail"],
                                                         $row["roleLabel"], $row["creationTimeStamp"], $row["status"]));
