@@ -1,5 +1,13 @@
-//TODO add error message
-//TODO add success message
+//is used to empty the input fields of the form
+function purgeForm() {
+    $("#titleInput").val("");
+    $("#priorityInput").val("0");
+    $("#assignInput").val("0");
+    $("#descriptionInput").val("");
+    $("#deadlineDate").val("");
+    $("#deadlineTime").val("");
+}
+
 function showCreateTodo() {
     $(".errorInputs").hide();
         //fetches the users and populates the select with them
@@ -10,6 +18,7 @@ function showCreateTodo() {
 
     $("#divCreateTodo").fadeIn();
 }
+
 function createTodo() {
 
     //InputVal will be used to check if every input is considered as valid, if yes
@@ -108,7 +117,7 @@ function loadInitialData()
             alertUser("error", "Error in data loading", "An error occourred while loading the post-it");
           }
       });
-    //Than we get the TO DO created by us
+    //Then we get the TO DO created by us
         $.ajax({
             'url': '../api/todo/getPostIt.php?creatorID=1&onlyFuture=1',
             'type': 'GET',
@@ -235,6 +244,7 @@ function hideList() {
     $("#listContainer").append(listEl);
 }*/
 
+//is used to empty all 4 lists containing the post its
 function purgeList() {
     $("#personalList > .list-group-item").remove();
     $("#externalList > .list-group-item").remove();
@@ -242,6 +252,7 @@ function purgeList() {
     $("#externalListPast > .list-group-item").remove();
 }
 
+//sends a POST request to the API to save the created post it in the db
 function postPostIt(dataToSend) {
     //data to send is the array
     $.ajax({
@@ -262,6 +273,7 @@ function postPostIt(dataToSend) {
             //loads the data from db
             loadInitialData();
             alertUser("success", "Data saved!", "Your data was successfully saved");
+            purgeForm();
         },
         error : function (response){
             alertUser("error", "Error in data upload", "An error occourred while saving your data");
@@ -269,6 +281,7 @@ function postPostIt(dataToSend) {
     });
 }
 
+//fetches the users from the db and populates the list with them (fetches only the active users)
 function populateUsers(selectToAppendTo) {
     $.ajax({
         'url': '../api/users/getUsers.php',
@@ -289,6 +302,7 @@ function populateUsers(selectToAppendTo) {
     });
 }
 
+//fetches the priorities from the db
 function populatePrios(selectToAppendTo) {
     $.ajax({
         'url': '../api/priorities/getPriorities.php',
@@ -310,6 +324,7 @@ function populatePrios(selectToAppendTo) {
     });
 }
 
+//creates and appends 1 new card to the container with the ID = elID (first param), response contains all the retrieved infos from the API
 function appendListElToEl(elID, response) {
     var listItem = document.createElement("li");
 
@@ -335,12 +350,12 @@ function appendListElToEl(elID, response) {
 
     let priority = document.createElement("div");
     $(priority).addClass("text-bold");
-    $(priority).html(response.priorityLabel);
+    $(priority).html("Prio: " + response.priorityLabel);
     itemContainer.appendChild(priority);
 
     //#####BEGIN descr creation
     let descrContainer = document.createElement("div");
-    $(descrContainer).addClass("text");
+    $(descrContainer).addClass("underTit");
     $(descrContainer).text(response.description);
     itemContainer.appendChild(descrContainer);
 
@@ -375,39 +390,42 @@ function appendListElToEl(elID, response) {
     itemContainer.appendChild(userRow);
 
     //If tickets are still open
+    //console.log($.cookie("userID"));
     if (response.postStatus == 0) {
         $(title).addClass("text-success");
         $(title).addClass("text-bold");
-        console.log(title);
-        let buttonChange = document.createElement("button");
-        $(buttonChange).addClass("btn btn-success");
-        $(buttonChange).text("Close ticket!");
-        $(buttonChange).attr("postID", response.id);
-        buttonChange.onclick = function () {
-            $.ajax({
-                type: "POST",
-                url: "../api/todo/updatePostIt.php",
-                data: {
-                    postID: $(this).attr("postID"),
-                    newStatus: 1
-                },
-                success: function (response) {
-                    alertUser("success","Post closed", "The post was successfully closed");
-                    purgeList();
-                    loadInitialData();
-                },
-                error: function (response) {
-                    alertUser("error", "An error occourred", response.statusText);
-                }
-            });
+        //TODO --> change the line == $.cookie("userID")
+        if (response.assignedTo == 1) {
+            let buttonChange = document.createElement("button");
+            $(buttonChange).addClass("btn btn-success");
+            $(buttonChange).text("Close ticket!");
+            $(buttonChange).attr("postID", response.id);
+            buttonChange.onclick = function () {
+                $.ajax({
+                    type: "POST",
+                    url: "../api/todo/updatePostIt.php",
+                    data: {
+                        postID: $(this).attr("postID"),
+                        newStatus: 1,
+                        userID: 1
+                    },
+                    success: function (response) {
+                        alertUser("success","Post closed", "The post was successfully closed");
+                        purgeList();
+                        loadInitialData();
+                    },
+                    error: function (response) {
+                        alertUser("error", "An error occourred", response.statusText);
+                    }
+                });
+            }
+            itemContainer.appendChild(buttonChange);
         }
-        itemContainer.appendChild(buttonChange);
     } else {
         $(title).addClass("text-danger");
         $(title).css("text-decoration", "Line-Through");
     }
 
     listItem.appendChild(itemContainer);
-    //listItem.innerHTML = response.title;
     document.getElementById(elID).appendChild(listItem);
 }
