@@ -24,8 +24,8 @@ try {
 
         //we count the logIns and store the res logType = 2 is login
         $sqlLogIns = "SELECT count(logID) 
-            FROM logs 
-                WHERE fk_logType = 2 AND date(timeStamp) = date(:myDate);";
+                        FROM logs 
+                            WHERE fk_logType = 2 AND date(timeStamp) = date(:myDate);";
         
         $stmtLogIns = $db->prepare($sqlLogIns);
 
