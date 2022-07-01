@@ -1,5 +1,7 @@
 <?php include('../php/include/header.php');?>
 <?php include('include/modals.inc.php');?>
+<?php 
+setcookie('userID', 1 , time()+86000); ?>
     <script src="../javaScript/userAlerts.js" type="text/javascript"></script>
     <script src="../javaScript/functionsToDo.js" type="text/javascript"></script>
     <script src="../javaScript/scriptToDo.js" type="text/javascript"></script>
@@ -7,7 +9,7 @@
     <h3 class="text-center pt-5">Board</h3>
     <div class="container">
         <div id="listContainer">
-            <div class="row bg-light p-4">
+            <div class="row bg-light p-4 customListCont">
                 <h2 class="text-center">Active</h2>
                 <div class="col">
                     <h3>Personal List:</h3>
@@ -20,7 +22,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="row bg-light p-4">
+            <br>
+            <div class="row bg-light p-4 customListCont">
                 <div>
                 <h2 class="text-center">Overdue</h2>
                 </div>
@@ -81,8 +84,7 @@
                     <label for="description">Description:</label>
                 </div>
                 <div class="col">
-                    <textarea type="text" class="form-control" name="description" rows="3" id="descriptionInput" aria-describedby="TaskInput" placeholder="Enter a describtion for the Task">
-                    </textarea>
+                    <textarea type="text" class="form-control" name="description" rows="3" id="descriptionInput" aria-describedby="TaskInput" placeholder="Enter a describtion for the Task"></textarea>
                     <small id="errorDescr" class="text-danger errorInputs">Please insert a description</small>
                 </div>
             </div>

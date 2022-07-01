@@ -34,11 +34,12 @@ include_once "../apiFunctions.php";
         //connects to db
         include_once("../apiDbConnection.php");
 
-        $sql = "INSERT INTO postIt
-                    (title, descr, createdBy_userID, assignedTo_userID, fk_priorityID, deadline)
-                    VALUES
-                        (:newTitle, :newDescr, :newCreator, :newAssigned, :newPrio, :newDeadline)";
         try {
+
+            $sql = "INSERT INTO postIt
+                        (title, descr, createdBy_userID, assignedTo_userID, fk_priorityID, deadline)
+                        VALUES
+                            (:newTitle, :newDescr, :newCreator, :newAssigned, :newPrio, :newDeadline)";
 
             $stmt = $db->prepare($sql);
 

@@ -1,5 +1,9 @@
+<!--<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>-->
  <?php include('include/header.php')?>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+ <script src="../javaScript/userAlerts.js" type="text/javascript"></script>
  <script src="../javaScript/scriptIndex.js" type="text/javascript"></script> 
+ <?php include('include/modals.inc.php')?>
   <?php 
     if(isset($_GET["site"]))
     {
@@ -18,15 +22,9 @@
         </span>
     </div>
     <div class="row pt-3">
-      <div class="col-sm pt-5 content text-center" style="background-color: #e0265f;">
-        <span class="text">
-          Statistical data
-        </span>
+      <div class="col-sm pt-5 content text-left" style="background-color: #e0265f;" id="dailyStats">
       </div>
-      <div class="col-sm pt-5  text-center content" style="background-color: #e0b25f;">
-        <span class="text">
-          Statistical data
-        </span>
+      <div class="col-sm pt-5  text-left content" style="background-color: #e0b25f;" id="timeStats">
       </div>
     </div>
     <div class="row">
