@@ -1,57 +1,16 @@
-<?php
-    session_start();
 
-    if(isset($_POST['submit'])){
-        $username = htmlentities($_POST['userName']);
-        setcookie('userID', 'userName','fk_roleID', $userId, $username, $fk_roleID, time() + 3600);
-        }
-
-?>
 <?php include('../php/include/header.php')?>
-<?php include('../php/classes/dbh.classes.php')?>
+<?php include('../php/classes/dbh.classes.php');
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link href="../css/myStyle.css" rel="stylesheet">
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
-</head>
-<body>
+    if (isset($_GET["error"]) && $_GET["error"] == "none"){
+    setcookie('userID', $_GET["userID"], time() + 3600);
+    setcookie('userName', $_GET["userName"], time() + 3600);
+    setcookie('userType', $_GET["fk_roleID"], time() + 3600);
+    }
+?>
 
 <header>
     <nav>
-         <!-- <div>
-            <h3>ProjerVer</h3>
-            <ul class="menu-main">
-                <li><a href="login.php">HOME</a></li>
-                <li><a href="#">LOREM</a></li>
-                <li><a href="#">IPSUM</a></li>
-                <li><a href="#">DOLOR SIT AMET</a></li>
-            </ul>
-        </div>
-        <ul class="menu-member">
-            <?php
-              //  if(isset($_SESSION["userid"]))
-                //{
-            ?>
-                //<li><a href="#"><?php 
-                //echo $_SESSION["useruid"]; ?></a></li>
-                <li><a href="includes/logout.inc.php" class="header-login-a">LOGOUT</a></li>
-            <?php
-               // }
-                //else
-                //{
-            ?>
-                <li><a href="#">SIGN UP</a></li>
-                <li><a href="#" class="header-login-a">LOGIN</a></li>
-            <?php  
-                //}
-            ?> -->
         </ul>
     </nav>
 </header>

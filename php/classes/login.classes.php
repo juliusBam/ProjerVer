@@ -23,7 +23,7 @@ class Login extends Dbh {
         //return pwd as an associated array
         $pwdHashed = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-       // $checkPwd = password_verify($pwd, $pwdHashed[0]["pwd"]);
+        $checkPwd = password_verify($pwd, $pwdHashed[0]["pwd"]);
         $checkPwd = ($pwdHashed[0]["pwd"] == $pwd);
 
         //check if the pwd match
@@ -36,10 +36,10 @@ class Login extends Dbh {
 
         //if pwd is the same, log in the user
         elseif($checkPwd == true) {
-            $stmt = $this->connect()->prepare('SELECT * FROM users WHERE userName = ? OR userEmail = ? AND pwd = ?;');
+            $stmt = $this->connect()->prepare('SELECT * FROM users WHERE userName = ? AND pwd = ? LIMIT 1;');
 
-            //user can submit via userName or userEmail
-            if(!$stmt->execute(array($uid, $uid, $pwd))) {
+            //user can submit via userName
+            if(!$stmt->execute(array($uid, $pwd))) {
                 $stmt = null;
                 header("location: ../login.php?error=stmtfailed");
                 exit();
@@ -55,12 +55,32 @@ class Login extends Dbh {
 
             $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            session_start();
-            $_SESSION["userid"] = $user[0]["userID"];
-            $_SESSION["useruid"] = $user[0]["userName"];
+            //header("location: ../login.php?error=none");
+            $url = "location: ../login.php?error=none&userID=".$user[0]["userID"]."&userName=".$user[0]["userName"]."&fk_roleID=".$user[0]["fk_roleID"];
 
+            header($url);
+                
             $stmt = null;
         }
     }
+
+
+// Insert data into db "logs"
+    protected function logs($inputData){
+
+        $fk_uid = $inputData['fk_userID'];
+        $fk_type = $inputData['fk_logType'];
+ //       $time = $inputData['timeStamp'];
+
+        $result = $this->connect()->prepare('INSERT INTO logs (fk_userID, fk_logType) VALUES (?, ?);');
+        if(!$result->execute(array($fk_uid, $fk_type))) {
+            $result = null;
+            header("location: ../login.php?error=stmtfailed");
+            exit();
+        }
+
+        $result = null;
+    }
+
 
 }

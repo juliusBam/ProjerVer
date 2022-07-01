@@ -18,5 +18,5 @@ if(isset($_POST["submit"]))
 
     // Going to back to front page
 
-    header("location: ../login.php?error=none");
+    //header("location: ../login.php?error=none");
 }
