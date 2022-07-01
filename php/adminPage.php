@@ -23,14 +23,14 @@
         <div class="form-group pt-2" id="newPriorityForm">
             <div class="container">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-sm">
                             <h2 class="text-left pl-5 pt-1">Create new priority</h2>
                             <label for="priority">Name for priority</label>
                             <input type="text" class="form-control w-75" id="priority" placeholder="Enter a new priority" required>
                             <br>
                             <button class="btn btn-outline-success" type="submit">Create priority now</button>
                         </div>
-                        <div class="col">
+                        <div class="col-sm">
                             <h2 class="text-left pl-5 pt-2">All existing priorities</h2>
                             <label for="existingPriorities">The following priorities do already exist:</label>
                             <textarea class="form-control" id="existingPriorities" rows="5" readonly></textarea> 
@@ -43,14 +43,14 @@
         <div class="form-group pt-2" id="newRoleForm">
             <div class="container">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-sm">
                                 <h2 class="text-left pl-5 pt-1">Create new role</h2>
                                 <label for="role">Name for role</label>
                                 <input type="text" class="form-control w-75" id="role" placeholder="Enter a new role" required>
                                 <br>
                                 <button class="btn btn-outline-success" type="submit">Create role now</button>
                             </div>
-                            <div class="col">
+                            <div class="col-sm">
                                 <h2 class="text-left pl-5 pt-2">All existing roles</h2>
                                 <label for="existingRoles">The following roles do already exist:</label>
                                 <textarea class="form-control" id="existingRoles" rows="5" readonly></textarea> 
@@ -64,7 +64,7 @@
         <div class="form-group pt-2"  id="newUserForm">
             <div class="container">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-sm">
                         <h2 class="text-left pl-5 pt-2">Create new user</h2>
                         <label for="username">Username</label>
                         <input type="text" class="form-control w-75" id="username" placeholder="Enter a username" required>
@@ -92,7 +92,7 @@
                         <br>
                         <button class="btn btn-outline-success" type="submit">Create user now</button>
                     </div>
-                    <div class="col">
+                    <div class="col-sm">
                         <h2 class="text-left pl-5 pt-2">All existing users</h2>
                         <label for="existingUsers">The following useres do already exist:</label>
                         <textarea class="form-control" id="existingUsers" rows="5" readonly></textarea>
