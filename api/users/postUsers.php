@@ -25,7 +25,7 @@ include_once "../apiFunctions.php";
     (isset($_POST["secondName"]) && isValidString($_POST["secondName"])) ? $newSecondName = $_POST["secondName"] : response("GET", 400, "Invalid second name");
     (isset($_POST["email"]) && isValidString($_POST["email"]) && isValidEmail($_POST["email"])) ? $newEmail = $_POST["email"] : response("GET", 400, "Invalid email");
     (isset($_POST["gender"]) && isValidString($_POST["gender"]) && strlen($_POST["gender"]) == 1) ? $newGender = $_POST["gender"] : response("GET", 400, "Invalid gender");
-    (isset($_POST["birthDate"]) && isValidDate($_POST["birthDate"])) ? $newBirthDate = $_POST["birthDate"] : response("GET", 400, "Invalid birthdate");
+    (isset($_POST["birthDate"]) && isValidPastDate($_POST["birthDate"])) ? $newBirthDate = $_POST["birthDate"] : response("GET", 400, "Invalid birthdate");
     (isset($_POST["pwd1"]) && isValidPwd($_POST["pwd1"])) ? $pwd1 = $_POST["pwd1"] : response("GET", 400, "Invalid password 1");
     (isset($_POST["pwd2"]) && isValidPwd($_POST["pwd2"])) ? $pwd2 = $_POST["pwd2"] : response("GET", 400, "Invalid password 2");
     ($pwd1 == $pwd2) ? $newPwd = md5($pwd1) : response("GET", 400, "Password aren't matching");

@@ -13,8 +13,8 @@ $requestedStart = false;
 $requestedEnd = false;
 $resultSet;
 
-(isset($_GET["date1"]) && isValidFutureDate($_GET["date1"])) ? $requestedStart = $_GET["date1"] : response("GET", 400, "Invalid start date");
-(isset($_GET["date2"]) && isValidFutureDate($_GET["date2"])) ? $requestedEnd = $_GET["date2"] : response("GET", 400, "Invalid end date");
+(isset($_GET["date1"]) && isValidAnyDate($_GET["date1"])) ? $requestedStart = $_GET["date1"] : response("GET", 400, "Invalid start date");
+(isset($_GET["date2"]) && isValidAnyDate($_GET["date2"])) ? $requestedEnd = $_GET["date2"] : response("GET", 400, "Invalid end date");
 
 try {
     include_once("../apiDbConnection.php");
