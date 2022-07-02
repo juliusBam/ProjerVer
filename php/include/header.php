@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/myStyle.css" rel="stylesheet">
     <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -29,7 +30,24 @@
         </li>
         <li>
           <a class="nav-link" href="adminPage.php">Admin Page</a>
-        </li> 
+        </li>
+        <li>
+        <a class="nav-link" href="impressum.php">Impressum</a>
+      </li> 
+            <?php
+                if(isset($_COOKIE["userID"]))
+                {
+            ?>
+                <li><a href="logout.php" class="nav-link">Logout</a></li>
+            <?php
+                }
+                else
+                {
+            ?>
+                <li><a href="login.php" class="nav-link">Login</a></li>
+            <?php  
+                }
+            ?>
       </ul>
     </div>
 </nav>
