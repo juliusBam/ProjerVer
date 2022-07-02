@@ -227,6 +227,7 @@ function postPriority()
         }
     }).done(function (response) {
         alertUser("success", "Priority created!", "Your priority was successfully created");
+        clearPrioForm();
     }).fail(function (response){
         alertUser("error", "Error while creating priority!", "The entered priority exists already");
     });
@@ -244,6 +245,7 @@ function postRole()
         }
     }).done(function (response) {
         alertUser("success", "Role created!", "Your role was successfully created");
+        clearRoleForm();
     }).fail(function (response){
         alertUser("error", "Error while creating role!", "The entered role exists already");
     });
@@ -267,8 +269,30 @@ function postUser()
         }
     }).done(function (response) {
         alertUser("success", "User created!", "The user was successfully created");
+        clearUserForm();
     }).fail(function (response){
         alertUser("error", "Error while creating user!", response.responseJSON);
     });  
 }
+function clearUserForm()
+{
+    $("#username").val("");
+    $("#firstName").val(""); 
+    $("#secondName").val("");
+    $("#useremail").val("");
+    $("#gender").val("");
+    $("#birthdate").val("");
+    $("#pwd1").val("");
+    $("#pwd2").val("");
+    $("#roleSelect").val("");
+}
+function clearPrioForm()
+{
+    $('#priority').val("")
+}
+function clearRoleForm()
+{
+    $('#role').val("");
+}
+
 
