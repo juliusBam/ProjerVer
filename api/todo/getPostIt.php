@@ -1,19 +1,19 @@
 <?php
 
-//TODO update the user class with the role id
-//as well as the constructor
-
+//goes 2 dir up
 $dirUp = dirname(__DIR__, 2);
 
+//creates the path to the data model
 $userClass = $dirUp."/php/dataRequests/dataModels/postIt.class.php";
-$dbClass = $dirUp."/php/classes/dbh.classes.php";
 
+//includes the data model and the helper functions
 include_once($userClass);
 include_once("../apiFunctions.php");
 
 //accepts only get requests
 checkRequestMethod("GET");
 
+//sets the variables for the params
 $postID = false;
 $assignedID = false;
 $creatorID = false;
@@ -22,6 +22,7 @@ $deadlineFuture = false;
 
 $resultSet = null;
 
+//checks which params are set and valid
 (isset($_GET["postID"]) && isValidID($_GET["postID"])) ? $postID = $_GET["postID"] : $postID = false;
 (isset($_GET["assignedID"]) && isValidID($_GET["assignedID"])) ? $assignedID = $_GET["assignedID"] : $assignedID = false;
 (isset($_GET["creatorID"]) && isValidID($_GET["creatorID"])) ? $creatorID = $_GET["creatorID"] : $creatorID = false;
@@ -33,6 +34,7 @@ if ($deadlinePast && $deadlineFuture) {
     response("GET", 400, "Bad request");
 }
 
+//ordering clause will be appended at the end of the sql
 $orderingClause = " ORDER BY deadline ASC, fk_priorityID ASC";
 
 try {
@@ -43,7 +45,7 @@ try {
     //returns 1 post with the given ID
     if ($postID != false) {
 
-            //$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+            //creates the sql
             $sql = "SELECT postIt_ID, title, descr, createdBy_userID, users.userName as creatorName, 
                                 assignedTo_userID, u1.userName as assignedName, 
                                 priorities.priorityLabel as prioLabel, 
@@ -58,18 +60,21 @@ try {
                         WHERE 
                             postIt_ID = :neededID";
 
+            //appends deadline filter if needed
             if ($deadlinePast) {
                 $sql = $sql . " AND deadline < now()";
             } else if ($deadlineFuture) {
                 $sql = $sql . " AND deadline > now()";
             }
 
+            //appends the ordering clause
             $sql = $sql . $orderingClause;
 
             $query = $db->prepare($sql);
 
             try {
 
+                //binds the param, executes the sql and encapsulates the results into an object, if a result is found
                 $query->bindParam("neededID", $postID, PDO::PARAM_INT);
 
                 $query->execute();
@@ -81,18 +86,10 @@ try {
                     //the result set has to become an array in order to push every found dataset into it
                     $resultSet = array();
                     $resultSet = appendPostIt($queryRes);
-            
-                    /*foreach($queryRes as $row) {
-            
-                        array_push($resultSet,new PostIt($row["postIt_ID"], $row["title"], $row["descr"],
-                                                                $row["postTimeStamp"], $row["deadline"], $row["createdBy_userID"],
-                                                                $row["creatorName"], $row["assignedTo_userID"], $row["assignedName"],
-                                                                $row["fk_priorityID"],$row["prioLabel"],$row["postStatus"]));
-                                                                
-                    }*/
 
                 }
 
+                //if no result returns empty
                 if ($resultSet == null) {
         
                     response("GET", 200, "Empty");
@@ -106,8 +103,11 @@ try {
             } 
 
 
+    //assignedID was set and valid
     } else if ($assignedID != false) {
         //returns all the assigned post to the given userID
+
+        //creates sql, appends the deadline filter and appends the ordering clause
 
         $sql = "SELECT postIt_ID, title, descr, createdBy_userID, users.userName as creatorName, 
                         assignedTo_userID, u1.userName as assignedName, 
@@ -130,9 +130,11 @@ try {
 
         $sql = $sql . $orderingClause;
 
+        //prepares the sql
         $query = $db->prepare($sql);
 
         try {
+            //binds the params and executes
 
             $query->bindParam("neededId", $assignedID, PDO::PARAM_INT);
 
@@ -140,6 +142,7 @@ try {
 
             $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
 
+            //encapsulates the results and push them into the result array
             if (count($queryRes) > 0) {
         
                 //the result set has to become an array in order to push every found dataset into it
@@ -147,6 +150,7 @@ try {
                 $resultSet = appendPostIt($queryRes);
             }
         
+            //if no resultSet sends empty
             if ($resultSet == null) {
         
                 response("GET", 200, "Empty");
@@ -161,6 +165,8 @@ try {
 
     } else if ($creatorID != false) {
         //returns all the post created by the user, but not the self-assigned one, this will be in the assigned API
+
+        //creates sql, appends the deadline filter and the ordering clause
 
         $sql = "SELECT postIt_ID, title, descr, createdBy_userID, users.userName as creatorName, 
                         assignedTo_userID, u1.userName as assignedName, 
@@ -183,17 +189,20 @@ try {
 
         $sql = $sql . $orderingClause;
 
+        //prepares sql
         $query = $db->prepare($sql);
 
         try {
 
-            //$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+            //binds param and executes
 
             $query->bindParam("neededId", $creatorID, PDO::PARAM_INT);
 
             $query->execute();
 
             $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            //encapsulates the results and push them into the result array
 
             if (count($queryRes) > 0) {
                 
@@ -203,6 +212,7 @@ try {
 
             }
 
+            //if no resultSet sends empty
             if ($resultSet == null) {
 
                 response("GET", 200, "Empty");
@@ -217,8 +227,9 @@ try {
 
 
     } else {
+        //in this case just returns ALL postITs
 
-        //$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+        //creates sql, appends the deadline filter and the ordering
         $sql = "SELECT postIt_ID, title, descr, createdBy_userID, users.userName as creatorName, 
                         assignedTo_userID, u1.userName as assignedName, 
                         priorities.priorityLabel as prioLabel, 
@@ -239,14 +250,15 @@ try {
 
         $sql = $sql . $orderingClause;
 
+        //prepares and executes the sql
+
         $query = $db->prepare($sql);
 
         $query->execute();
 
-        //print_r($query->errorInfo());
-
         $queryRes = $query->fetchAll(PDO::FETCH_ASSOC);
 
+        //if there is a result set it is encapsulated and pushed into the $resultSet array
         if (count($queryRes) > 0) {
             //the result set has to become an array in order to push every found dataset into it
             $resultSet = array();
@@ -254,9 +266,10 @@ try {
 
         }
 
+        //if no results returns "post it not found
         if ($resultSet == null) {
 
-            $resultSet = "noPostit";
+            response("GET", 200, "Postit not found");
 
         }
 
@@ -264,9 +277,6 @@ try {
 
     switch ($resultSet) {
 
-        case "noPostit":
-            response("GET", 200, "Postit not found");
-            break;
         case false:
             response("GET", 400, "An error occoured");
             break;
