@@ -22,9 +22,12 @@ class Login extends Dbh {
 
         //return pwd as an associated array
         $pwdHashed = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        $checkPwd = password_verify($pwd, $pwdHashed[0]["pwd"]);
-        $checkPwd = ($pwdHashed[0]["pwd"] == $pwd);
+
+        //hashed password verification
+        $checkPwd = md5($pwd) == $pwdHashed[0]["pwd"];
+
+        //not hashed pwd verification [deprecated]
+        //$checkPwd = ($pwdHashed[0]["pwd"] == $pwd);
 
         //check if the pwd match
         if($checkPwd == false)
@@ -39,7 +42,7 @@ class Login extends Dbh {
             $stmt = $this->connect()->prepare('SELECT * FROM users WHERE userName = ? AND pwd = ? LIMIT 1;');
 
             //user can submit via userName
-            if(!$stmt->execute(array($uid, $pwd))) {
+            if(!$stmt->execute(array($uid, md5($pwd)))) {
                 $stmt = null;
                 header("location: ../login.php?error=stmtfailed");
                 exit();
