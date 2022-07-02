@@ -3,11 +3,11 @@
 if(isset($_POST["submit"]))
 {
 
-    // Grabbing the data
+
     $uid = $_POST["uid"];
     $pwd = $_POST["pwd"];
 
-    // Instantiate SignupContr class
+    // include signup classes
     include "../classes/dbh.classes.php";
     include "../classes/login.classes.php";
     include "../classes/login-contr.classes.php";
@@ -17,5 +17,6 @@ if(isset($_POST["submit"]))
     $login->loginUser();
 
     // Going to back to front page
-    header("location: ../login.php?error=none");
+
+    //header("location: ../login.php?error=none");
 }
