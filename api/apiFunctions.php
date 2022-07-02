@@ -31,7 +31,7 @@ function isValidTimeStamp($var) {
     return ($d && $d > $timeStamp);
 }
 
-function isValidDate($dateString) {
+function isValidPastDate($dateString) {
     try {
         $d = new DateTime($dateString);
     } catch (\Throwable $th) {
@@ -40,7 +40,7 @@ function isValidDate($dateString) {
     return ($d && $d < new DateTime());
 }
 
-function isValidFutureDate($dateString) {
+function isValidAnyDate($dateString) {
     try {
         $d = new DateTime($dateString);
     } catch (\Throwable $th) {

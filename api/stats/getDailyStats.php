@@ -13,7 +13,7 @@ checkRequestMethod("GET");
 $requestedDay = false;
 $resultSet;
 
-(isset($_GET["day"]) && isValidDate($_GET["day"])) ? $requestedDay = $_GET["day"] : $requestedDay = (new DateTime())->format("Y-m-d");
+(isset($_GET["day"]) && isValidAnyDate($_GET["day"])) ? $requestedDay = $_GET["day"] : $requestedDay = (new DateTime())->format("Y-m-d");
 
 
 try {
