@@ -36,6 +36,7 @@ include_once "../apiFunctions.php";
 
         try {
 
+            //creates sql and prepares it
             $sql = "INSERT INTO postIt
                         (title, descr, createdBy_userID, assignedTo_userID, fk_priorityID, deadline)
                         VALUES
@@ -43,6 +44,7 @@ include_once "../apiFunctions.php";
 
             $stmt = $db->prepare($sql);
 
+            //binds the new parameters
             $stmt->bindParam("newTitle", $newTitle, PDO::PARAM_STR);
             $stmt->bindParam("newDescr", $newDescription, PDO::PARAM_STR);
             $stmt->bindParam("newCreator", $newCreator, PDO::PARAM_INT);
@@ -52,8 +54,10 @@ include_once "../apiFunctions.php";
 
             $stmt->execute();
 
+            //returns success if went right
             response("GET", 201, "Success");
 
+            //else returns an exception
         } catch (\Throwable $th) {
 
             response("GET", 400, $th);

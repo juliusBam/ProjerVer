@@ -16,6 +16,7 @@ include_once "../apiFunctions.php";
         //connects to db
         include_once("../apiDbConnection.php");
 
+        //declare the sql
         $sql = "INSERT 
                     INTO  
                         roles (roleLabel) 
@@ -23,15 +24,18 @@ include_once "../apiFunctions.php";
 
         try {
 
+            //binds the params and executes it
             $stmt = $db->prepare($sql);
 
             $stmt->bindParam("newLabel", $newLabel, PDO::PARAM_STR);
             
             $stmt->execute();
 
+            //returns success if went right
             response("GET", 200, "Success");
 
 
+            //sends excpetion if went wrong
         } catch (\Throwable $th) {
 
             response("GET", 400, $th);

@@ -1,6 +1,5 @@
 <?php
 
-
 //gets the path 2 directories up
 $dirUp = dirname(__DIR__, 2);
 
@@ -14,7 +13,7 @@ include_once("../apiFunctions.php");
     //accepts only GET requests
     checkRequestMethod("GET");
 
-    //the 
+    //the passed parameter is checked, if not valid returns error 400
     $neededId = false;
 
     (isset($_GET["id"]) && isValidID($_GET["id"])) ? $neededId = $_GET["id"] : response("GET", 400, "Bad request");
@@ -29,11 +28,14 @@ include_once("../apiFunctions.php");
 
             //prepares the SQL
             $query = $db->prepare("UPDATE  
-                                        Users
+                                        users
                                     SET
                                         status = 0
                                     WHERE
-                                        userID  =  $neededId;");
+                                        userID  =  :idToDelete;");
+
+            //binds the passed id to the placeholder
+            $query->bindParam(":idToDelete",$neededId,PDO::PARAM_INT);
     
             $query->execute();
 
