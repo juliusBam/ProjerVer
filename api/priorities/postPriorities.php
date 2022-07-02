@@ -16,6 +16,7 @@ include_once "../apiFunctions.php";
         //connects to db
         include_once("../apiDbConnection.php");
 
+        //the statement to execute
         $sql = "INSERT 
                     INTO  
                         priorities (priorityLabel) 
@@ -23,8 +24,10 @@ include_once "../apiFunctions.php";
 
         try {
 
+            //preapres the sql
             $stmt = $db->prepare($sql);
 
+            //binds the params and executes the stmt
             $stmt->bindParam("newLabel", $newLabel, PDO::PARAM_STR);
             
             $stmt->execute();

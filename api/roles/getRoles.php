@@ -1,10 +1,12 @@
 <?php
 
+//goes 2 dir up
 $dirUp = dirname(__DIR__, 2);
 
+//creates the path to the data models
 $userClass = $dirUp."/php/dataRequests/dataModels/role.class.php";
-$dbClass = $dirUp."/php/classes/dbh.classes.php";
 
+//includes the data models as well as the helper functions
 include_once($userClass);
 include_once("../apiFunctions.php");
 
@@ -18,10 +20,12 @@ include_once("../apiFunctions.php");
 
         try {
 
+            //checks the parameters, if it's set and valid
             if (isset($_GET["id"]) && isValidID($_GET["id"])) {
 
                 $searchedRole = $_GET["id"];
 
+                //executes query to retrieve the role with the needed id
                 $sql = "SELECT * 
                             FROM 
                                 roles
@@ -36,20 +40,23 @@ include_once("../apiFunctions.php");
 
                 $queryRes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                //var_dump($queryRes);
-                //die();
+                //encapsulates the result into an object and assigns it to the $resultSet
 
                 $resultSet = new Role($queryRes[0]["roleID"], $queryRes[0]["roleLabel"]);
     
+            //if param is not set or not valid returns all the roles
             } else {
 
                 $resultSet = array();
 
+                //executes query
                 $sql = "SELECT * FROM roles";
                 
                 $stmt = $db->prepare($sql);
 
                 $stmt->execute();
+
+                //fetches the results, encapsulates them into an object and pushes them into the array $resultSet
 
                 $queryRes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -65,9 +72,11 @@ include_once("../apiFunctions.php");
 
             }
 
+            //if everything was fine sends the results
+
             response("GET", 200, $resultSet);
 
-        }
+        } //if exception is thrown returns it
         catch (\Throwable $th) {
 
             response("GET", 400, $th);

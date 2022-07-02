@@ -1,17 +1,14 @@
 <?php
 
-$dirUp = dirname(__DIR__, 2);
-
-$dbClass = $dirUp."/php/classes/dbh.classes.php";
-
 include_once("../apiFunctions.php");
 
+        //accepts only post requests
+        checkRequestMethod("POST");
+
+//checks the passed parameters
 $postID = false;
 $newStatus = false;
 $userID = false;
-
-if ($_SERVER["REQUEST_METHOD"] != "POST")
-    response("GET", 400, "Bad request");
 
 $postIDtoChange = false;
 $statusToAdd = false;
@@ -23,9 +20,9 @@ $statusToAdd = false;
 
 try {
 
-    //when the 
     include_once("../apiDbConnection.php");
 
+    //starts a transaction (we have to execute 2 sql after eachother)
     $db->beginTransaction();
 
     //the SQL to execute
@@ -35,11 +32,14 @@ try {
 
     $stmt = $db->prepare($sqlUpdate);
 
+    //binds parameters
     $stmt->bindParam("newStatus", $statusToAdd, PDO::PARAM_INT);
     $stmt->bindParam("IDtoChange", $postIDtoChange, PDO::PARAM_INT);
 
     $stmt->execute();
 
+
+    //inserts a log that the user userID closed a post it
     $sqlInsertLog = "INSERT INTO `logs`(fk_userID, fk_logType) VALUES (:userID,4)";
 
     $stmtLog = $db->prepare($sqlInsertLog);
@@ -48,8 +48,12 @@ try {
 
     $stmtLog->execute();
 
-    $db->commit();
+    //if everything went right commits the transaction
 
+    $db->commit();
+    response("GET", 200, "Okkey");
+
+    //if error rollbacks the transaction and sends the exception
 } catch (\Throwable $th) {
 
     $db->rollBack();
@@ -57,5 +61,3 @@ try {
     response("GET", 400, $th);
 
 }
-
-response("GET", 200, "Okkey");
