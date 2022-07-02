@@ -1,11 +1,10 @@
 <?php     
-session_start();
-
 if (isset($_GET["error"]) && $_GET["error"] == "none"){
+    session_start();
     setcookie('userID', $_GET["userID"], time() + 3600);
     setcookie('userName', $_GET["userName"], time() + 3600);
     setcookie('userType', $_GET["fk_roleID"], time() + 3600);
-
+    header("location: index.php");
     }
 ?>
 <?php include('../php/include/header.php')?>

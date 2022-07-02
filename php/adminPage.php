@@ -76,7 +76,7 @@
                         <input type="email" class="form-control w-75" id="useremail" placeholder="Enter an email" required>
                         <label for="gender">Please select a gender</label>
                         <select type="text" class="form-control w-75" id="gender" required>
-                            <option value="w">women</option>
+                            <option value="f">women</option>
                             <option value="d">diverse</option>
                             <option value="m">men</option>
                         </select>
