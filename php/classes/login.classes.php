@@ -66,20 +66,19 @@ class Login extends Dbh {
 
 
 // Insert data into db "logs"
-    protected function logs($inputData){
+    public function logs($inputData){
 
         $fk_uid = $inputData['fk_userID'];
         $fk_type = $inputData['fk_logType'];
- //       $time = $inputData['timeStamp'];
 
-        $result = $this->connect()->prepare('INSERT INTO logs (fk_userID, fk_logType) VALUES (?, ?);');
-        if(!$result->execute(array($fk_uid, $fk_type))) {
-            $result = null;
+        $stmt = $this->connect()->prepare('INSERT INTO logs (fk_userID, fk_logType) VALUES (:fk_userID, :fk_logType);');
+        if(!$stmt->execute(array($fk_uid, $fk_type))) {
+            $stmt = null;
             header("location: ../login.php?error=stmtfailed");
             exit();
         }
 
-        $result = null;
+        $stmt = null;
     }
 
 

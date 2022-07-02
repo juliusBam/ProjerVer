@@ -1,3 +1,6 @@
+<? 
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,26 +37,22 @@
       <li>
         <a class="nav-link" href="impressum.php">Impressum</a>
       </li> 
-      <li>
-        <a class="nav-link" href="login.php">Login</a>
+      <!-- --------- TODO --------- 
+      Logout-Button erscheint nicht, nach dem Login! -->
         <?php
                 if(isset($_SESSION["userid"]))
                 {
             ?>
-                <!-- <li><a href="#"><?php 
-                //echo $_SESSION["useruid"]; ?></a></li> -->
-                <li><a href="logout.inc.php" class="nav-link">Logout</a></li>
+                <li><a href="includes/logout.inc.php" class="nav-link">Logout</a></li>
             <?php
                 }
                 else
                 {
             ?>
-                <!-- <li><a href="#">SIGN UP</a></li>
-                <li><a href="#" class="header-login-a">LOGIN</a></li> -->
+                <li><a href="login.php" class="nav-link">Login</a></li>
             <?php  
                 }
             ?>
-      </li> 
     </ul>
   </div>
 </nav>
