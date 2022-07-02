@@ -19,7 +19,7 @@ if (isset($_GET["error"]) && $_GET["error"] == "none"){
 
 <section class="index-login">
     <div class="wrapper">
-        <div class="index-login-signup">
+        <!-- <div class="index-login-signup">
             <h4>SIGN UP</h4>
             <p>Don't have an account yet? Sign up here!</p>
             <form action="php/includes/signup.inc.php" method="post">
@@ -35,7 +35,7 @@ if (isset($_GET["error"]) && $_GET["error"] == "none"){
                    In case you want to register a new account, please contact our Admin!
                 </p>
             </form>
-        </div>
+        </div> -->
         <div class="index-login-login">
             <h4>Login</h4>
             <p>Enjoy to be a member!</p>
