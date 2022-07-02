@@ -1,13 +1,15 @@
+<?php     
+session_start();
 
-<?php include('../php/include/header.php')?>
-<?php include('../php/classes/dbh.classes.php');
-
-    if (isset($_GET["error"]) && $_GET["error"] == "none"){
+if (isset($_GET["error"]) && $_GET["error"] == "none"){
     setcookie('userID', $_GET["userID"], time() + 3600);
     setcookie('userName', $_GET["userName"], time() + 3600);
     setcookie('userType', $_GET["fk_roleID"], time() + 3600);
+
     }
 ?>
+<?php include('../php/include/header.php')?>
+<?php include('../php/classes/dbh.classes.php');?>
 
 <header>
     <nav>

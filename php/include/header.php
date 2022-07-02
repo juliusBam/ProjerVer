@@ -1,6 +1,3 @@
-<? 
-session_start();
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,11 +36,11 @@ session_start();
       </li> 
       <!-- --------- TODO --------- 
       Logout-Button erscheint nicht, nach dem Login! -->
-        <?php
-                if(isset($_SESSION["userid"]))
+            <?php
+                if(isset($_COOKIE["userID"]))
                 {
             ?>
-                <li><a href="includes/logout.inc.php" class="nav-link">Logout</a></li>
+                <li><a href="logout.php" class="nav-link">Logout</a></li>
             <?php
                 }
                 else

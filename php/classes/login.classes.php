@@ -58,6 +58,20 @@ class Login extends Dbh {
 
             $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+            //User Login wird in logs eingetragen
+            $fk_uid = $user[0]["userID"]; 
+            $stmtLogs = $this->connect()->prepare('INSERT INTO logs (fk_userID, fk_logType) VALUES (:fk_userID, 2);'); 
+            $stmtLogs->bindParam("fk_userID", $fk_uid, PDO::PARAM_INT);
+           // $stmt->bindParam("fk_logType", $fk_type, PDO::PARAM_INT);
+    
+            if(!$stmtLogs->execute()) {
+                $stmtLogs = null;
+                header("location: ../login.php?error=stmtfailed");
+                exit();
+            }
+    
+            $stmt = null;
             //header("location: ../login.php?error=none");
             $url = "location: ../login.php?error=none&userID=".$user[0]["userID"]."&userName=".$user[0]["userName"]."&fk_roleID=".$user[0]["fk_roleID"];
 
@@ -66,23 +80,5 @@ class Login extends Dbh {
             $stmt = null;
         }
     }
-
-
-// Insert data into db "logs"
-    public function logs($inputData){
-
-        $fk_uid = $inputData['fk_userID'];
-        $fk_type = $inputData['fk_logType'];
-
-        $stmt = $this->connect()->prepare('INSERT INTO logs (fk_userID, fk_logType) VALUES (:fk_userID, :fk_logType);');
-        if(!$stmt->execute(array($fk_uid, $fk_type))) {
-            $stmt = null;
-            header("location: ../login.php?error=stmtfailed");
-            exit();
-        }
-
-        $stmt = null;
-    }
-
 
 }
