@@ -1,5 +1,16 @@
 <!-- Include the navbar and the Modals php for further use-->
 <?php include('../php/include/header.php')?>
+<?php
+    //logically only admins are allowd to visit the admin page. If the user is not logged, or it is not an admin the loading of the page will be blocked
+    //and a message will be shown instead
+    if (!isset($_COOKIE["userID"]) || !isset($_COOKIE["userType"]) || $_COOKIE["userType"] != "1") {
+        include("include/nonAuthorized.inc.php");
+        exit();
+    }
+?>
+
+
+
 <?php include('include/modals.inc.php');?>
 <!-- all needed JS Files-->
 <script src="../javaScript/userAlerts.js" type="text/javascript"></script>
