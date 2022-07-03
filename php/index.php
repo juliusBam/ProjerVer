@@ -1,10 +1,11 @@
 <!--<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>-->
  <?php include('include/header.php')?>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+ <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>-->
  <script src="../javaScript/userAlerts.js" type="text/javascript"></script>
  <script src="../javaScript/scriptIndex.js" type="text/javascript"></script> 
  <?php include('include/modals.inc.php')?>
-  <?php 
+  <?php
+  //deprecated, still here to be sure
     if(isset($_GET["site"]))
     {
       switch($_GET["site"])
