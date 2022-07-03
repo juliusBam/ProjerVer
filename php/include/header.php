@@ -45,19 +45,6 @@
             echo '<li><a href="login.php" class="nav-link">Login</a></li>';
           }
         ?>
-            <?php
-                if(isset($_COOKIE["userID"]))
-                {
-            ?>
-            <?php
-                }
-                else
-                {
-            ?>
-                
-            <?php  
-                }
-            ?>
       </ul>
     </div>
 </nav>
