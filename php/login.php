@@ -16,9 +16,27 @@ if (isset($_GET["error"]) && $_GET["error"] == "none"){
         <div class="index-login-login">
             <h4>Login</h4>
             <p>Enjoy to be a member!</p>
+            <?php
+                 if(isset($_GET["error"]) && $_GET["error"] == "stmtfailed") {
+                    echo '<small class="text-danger>Error with the data retrieval</small>';
+                 } else if(isset($_GET["error"]) && $_GET["error"] == "emptyinput") {
+                    echo '<small class="text-danger>Please fill all the fields</small>';
+                 }
+            ?>
             <form action="include/login.inc.php" method="post">
-                <input type="text" name="uid" placeholder="Username">
-                <input type="password" name="pwd" placeholder="Password">
+                <?php 
+                    if(isset($_GET["error"]) && $_GET["error"] == "usernotfound") {
+                        echo '<small class="text-danger>Wrong user</small>';
+                    }
+                ?>
+                <input type="text" name="uid" placeholder="Username" required>
+                <?php
+                    if(isset($_GET["error"]) && $_GET["error"] == "wrongpassword") {
+                        echo '<small class="text-danger">Wrong password</small>';
+                    }
+                        
+                ?>
+                <input type="password" name="pwd" placeholder="Password" required>
                 <br>
                 <button type="submit" name="submit">Login</button>
             </form>
