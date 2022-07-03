@@ -21,7 +21,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mt-2">
+      <!--<ul class="navbar-nav mt-2">-->
+      <ul class="navbar-nav me-auto">
         <li class="nav-item active">
           <a class="nav-link" href="index.php">Home</a>
         </li>
@@ -46,5 +47,14 @@
           }
         ?>
       </ul>
+      <form class="d-flex">
+        <?php
+          if(isset($_COOKIE["userName"])) {
+            echo '<ul class="navbar-nav me-auto>';
+            echo '<li class="nav-item" style="margin-right: 20px;">Logged as: '.$_COOKIE["userName"].'</li>';
+            echo '</ul>';
+          }
+        ?>
+      </form>
     </div>
 </nav>
