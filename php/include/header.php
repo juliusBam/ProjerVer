@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/myStyle.css" rel="stylesheet">
     <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -24,12 +25,26 @@
         <li class="nav-item active">
           <a class="nav-link" href="index.php">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="todo.php">Board</a>
-        </li>
-        <li>
-          <a class="nav-link" href="adminPage.php">Admin Page</a>
-        </li> 
+        <?php
+          if(isset($_COOKIE["userID"])) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="todo.php">Board</a>
+                  </li>';
+            if (isset($_COOKIE["userType"]) && $_COOKIE["userType"] == "1") {
+              echo '<li>
+                      <a class="nav-link" href="adminPage.php">Admin Page</a>
+                    </li>';
+            }
+          }
+          echo '<li>
+                  <a class="nav-link" href="impressum.php">Impressum</a>
+                </li> ';
+          if (isset($_COOKIE["userID"])) {
+            echo '<li><a href="logout.php" class="nav-link">Logout</a></li>';
+          } else {
+            echo '<li><a href="login.php" class="nav-link">Login</a></li>';
+          }
+        ?>
       </ul>
     </div>
 </nav>

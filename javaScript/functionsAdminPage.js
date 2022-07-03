@@ -38,7 +38,6 @@ function populateExistingUsers()
     })
     .done( function (response) {
         //if the ajax is finished go through the response array and add the found users to the corrosponding Textarea
-        console.log(response);
         for(var i=0; i<response.length;i++) {
             let userEntry = response[i].uName + " | " + response[i].firstName + " " + response[i].secondName;
             if(response[i].status==1)
@@ -274,7 +273,7 @@ function postUser()
         alertUser("success", "User created!", "The user was successfully created");
         clearUserForm();
     }).fail(function (response){
-        alertUser("error", "Error while creating user!", response.responseJSON);
+        alertUser("error", "Error while creating user!", "" + response.responseJSON);
     });  
 }
 function clearUserForm()

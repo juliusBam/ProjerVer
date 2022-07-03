@@ -1,7 +1,13 @@
 <?php include('../php/include/header.php');?>
+<?php
+    //logically only admins are allowd to visit the admin page. If the user is not logged, or it is not an admin the loading of the page will be blocked
+    //and a message will be shown instead
+    if (!isset($_COOKIE["userID"]) || $_COOKIE["userID"] == "" || $_COOKIE["userID"] == "0") {
+        include("include/nonAuthorized.inc.php");
+        exit();
+    }
+?>
 <?php include('include/modals.inc.php');?>
-<?php 
-setcookie('userID', 1 , time()+86000); ?>
     <script src="../javaScript/userAlerts.js" type="text/javascript"></script>
     <script src="../javaScript/functionsToDo.js" type="text/javascript"></script>
     <script src="../javaScript/scriptToDo.js" type="text/javascript"></script>
@@ -39,15 +45,20 @@ setcookie('userID', 1 , time()+86000); ?>
         </div>
         <div class="row text-center p-2">
             <div class="col">
-                <button class="btn btn-outline-secondary hiddenBtn" id="btnHide">Hide list</button>
-                <!--<button class="btn btn-outline-info" id="loadList">Load list from file</button>
-                <button class="btn btn-outline-success" id="saveList">Save list into file</button>-->
-                <button class="btn btn-outline-success" id="createTodo" onclick="showCreateTodo()">Create new ToDo</button>
+                <?php
+                    //if the user is not an intern he can create new posts
+                    if (isset($_COOKIE["userType"]) && $_COOKIE["userType"] != "3") {
+                        echo '<button class="btn btn-outline-success" id="createTodo" onclick="showCreateTodo()">Create new ToDo</button>';
+                    }
+                ?>
                 <ol class="list-group" id="listContainer">
                 </ol>
             </div>
         </div>
-        <div class="row p-2 border" id="divCreateTodo">
+        <?php
+        //if the user is not an intern the form is rendered
+        if (isset($_COOKIE["userType"]) && $_COOKIE["userType"] != "3") {
+        echo '<div class="row p-2 border" id="divCreateTodo">
             <div class="row pt-2">
                 <div class="col-2 pt-2 toDoInput">
                     <label for="title">Title:</label>
@@ -105,7 +116,9 @@ setcookie('userID', 1 , time()+86000); ?>
             <div class="row text-right p-2">
                 <button class="btn btn-outline-success" id="saveTodo" onclick="createTodo()">Save new Task</button>
             </div>
-        </div>
+        </div>';
+        }
+        ?>
     </div>
 </body>
 </html>
