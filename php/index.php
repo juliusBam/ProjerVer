@@ -28,6 +28,7 @@
       <div class="col-sm pt-5  text-left content" style="background-color: #e0b25f;" id="timeStats">
       </div>
     </div>
+   <!--
     <div class="row">
       <div class="col-sm pt-5 text-center content" style="background-color: #5496eb;">
         <span class="text">
@@ -49,6 +50,7 @@
           Address:  Seilerspeergasse 8/6/9
       </span>
     </div>
+-->
   </body>
 </html>
  
