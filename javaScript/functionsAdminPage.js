@@ -30,6 +30,9 @@ function populateExistingUsers()
     $.ajax({
         'url': '../api/users/getUsers.php',
         'type': 'GET',
+        'data' : {
+            allUsers : 1
+        },
         'cache': false,
         'dataType': 'json',
     })
