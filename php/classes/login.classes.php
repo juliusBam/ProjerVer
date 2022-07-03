@@ -3,14 +3,17 @@
 class Login extends Dbh {
 
     protected function getUser($uid, $pwd) {
-        $stmt = $this->connect()->prepare('SELECT users_pwd FROM users WHERE users_uid = ? OR users_email = ?;');
+        
+        $stmt = $this->connect()->prepare('SELECT pwd FROM users WHERE userName = ? AND status = 1;');
 
-        if(!$stmt->execute(array($uid, $pwd))) {
+        if(!$stmt->execute(array($uid))) {
             $stmt = null;
+
             header("location: ../login.php?error=stmtfailed");
             exit();
         }
 
+        //check if we get results from the database
         if($stmt->rowCount() == 0)
         {
             $stmt = null;
@@ -18,24 +21,35 @@ class Login extends Dbh {
             exit();
         }
 
+        //return pwd as an associated array
         $pwdHashed = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $checkPwd = password_verify($pwd, $pwdHashed[0]["users_pwd"]);
 
+        //hashed password verification
+        $checkPwd = md5($pwd) == $pwdHashed[0]["pwd"];
+
+        //not hashed pwd verification [deprecated]
+        //$checkPwd = ($pwdHashed[0]["pwd"] == $pwd);
+
+        //check if the pwd match
         if($checkPwd == false)
         {
             $stmt = null;
             header("location: ../login.php?error=wrongpassword");
             exit();
         }
-        elseif($checkPwd == true) {
-            $stmt = $this->connect()->prepare('SELECT * FROM users WHERE users_uid = ? OR users_email = ? AND users_pwd = ?;');
 
-            if(!$stmt->execute(array($uid, $uid, $pwd))) {
+        //if pwd is the same, log in the user
+        elseif($checkPwd == true) {
+            $stmt = $this->connect()->prepare('SELECT * FROM users WHERE userName = ? AND pwd = ? LIMIT 1;');
+
+            //user can submit via userName
+            if(!$stmt->execute(array($uid, md5($pwd)))) {
                 $stmt = null;
                 header("location: ../login.php?error=stmtfailed");
                 exit();
             }
 
+            //is the user in the db?
             if($stmt->rowCount() == 0)
             {
                 $stmt = null;
@@ -45,10 +59,25 @@ class Login extends Dbh {
 
             $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            session_start();
-            $_SESSION["userid"] = $user[0]["users_id"];
-            $_SESSION["useruid"] = $user[0]["users_uid"];
 
+            //User Login wird in logs eingetragen
+            $fk_uid = $user[0]["userID"]; 
+            $stmtLogs = $this->connect()->prepare('INSERT INTO logs (fk_userID, fk_logType) VALUES (:fk_userID, 2);'); 
+            $stmtLogs->bindParam("fk_userID", $fk_uid, PDO::PARAM_INT);
+           // $stmt->bindParam("fk_logType", $fk_type, PDO::PARAM_INT);
+    
+            if(!$stmtLogs->execute()) {
+                $stmtLogs = null;
+                header("location: ../login.php?error=stmtfailed");
+                exit();
+            }
+    
+            $stmt = null;
+            //header("location: ../login.php?error=none");
+            $url = "location: ../login.php?error=none&userID=".$user[0]["userID"]."&userName=".$user[0]["userName"]."&fk_roleID=".$user[0]["fk_roleID"];
+
+            header($url);
+                
             $stmt = null;
         }
     }

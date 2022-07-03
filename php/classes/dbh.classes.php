@@ -4,10 +4,9 @@ class Dbh {
 
     protected function connect() {
         try {
-            $username = "root";
-            $password = "";
-            // dbname has to be changed from -dummy- !
-            $dbh = new PDO('mysql:host=localhost;dbname=dummy', $username, $password);
+            $username = "itProjektUser";
+            $password = "itProjektUser";
+            $dbh = new PDO('mysql:host=localhost;dbname=projerVer', $username, $password);
             return $dbh;
         } 
         catch (PDOException $e) {
@@ -17,3 +16,4 @@ class Dbh {
     }
 
 }
+?>

@@ -100,7 +100,7 @@ function loadInitialData()
     $("#personaList").empty();
     //We Get the TO DO assigned to us
     $.ajax({
-          'url': '../api/todo/getPostIt.php?assignedID=1&onlyFuture=1',
+          'url': '../api/todo/getPostIt.php?assignedID='+ $.cookie("userID")+'&onlyFuture=1',
           'type': 'GET',
           'cache': false,
           'dataType': 'json',
@@ -119,7 +119,7 @@ function loadInitialData()
       });
     //Then we get the TO DO created by us
         $.ajax({
-            'url': '../api/todo/getPostIt.php?creatorID=1&onlyFuture=1',
+            'url': '../api/todo/getPostIt.php?creatorID='+ $.cookie("userID") +'&onlyFuture=1',
             'type': 'GET',
             'cache': false,
             'dataType': 'json',
@@ -138,7 +138,7 @@ function loadInitialData()
     //Now we fill the part with the past deadline:
         //We get the TO DO assigned to us
         $.ajax({
-            'url': '../api/todo/getPostIt.php?assignedID=1&onlyPast=1',
+            'url': '../api/todo/getPostIt.php?assignedID='+ $.cookie("userID") +'&onlyPast=1',
             'type': 'GET',
             'cache': false,
             'dataType': 'json',
@@ -160,7 +160,7 @@ function loadInitialData()
         });
         //And now we get the TO DO created by us
         $.ajax({
-            'url': '../api/todo/getPostIt.php?creatorID=1&onlyPast=1',
+            'url': '../api/todo/getPostIt.php?creatorID='+$.cookie("userID") +'&onlyPast=1',
             'type': 'GET',
             'cache': false,
             'dataType': 'json',
@@ -260,7 +260,7 @@ function postPostIt(dataToSend) {
         'type': 'POST',
         data: {
             //createdBy: session["uID"],
-            createdBy: 1,
+            createdBy: $.cookie("userID"),
             title: dataToSend[0],
             priority: dataToSend[1],
             assignedTo: dataToSend[2],
@@ -395,7 +395,7 @@ function appendListElToEl(elID, response) {
         $(title).addClass("text-success");
         $(title).addClass("text-bold");
         //TODO --> change the line == $.cookie("userID")
-        if (response.assignedTo == 1) {
+        if (response.assignedTo == $.cookie("userID")) {
             let buttonChange = document.createElement("button");
             $(buttonChange).addClass("btn btn-success");
             $(buttonChange).text("Close ticket!");
