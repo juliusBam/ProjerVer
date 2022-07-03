@@ -1,11 +1,13 @@
 <?php
 
+// create the class with the extension to the database connection
 class Login extends Dbh {
 
+    // check if the column pwd from the database is equal to the pwd the user, with given username 
+    // and status = 1 (active), wants to log in with
     protected function getUser($uid, $pwd) {
-        
+        // sql query to select data from database
         $stmt = $this->connect()->prepare('SELECT pwd FROM users WHERE userName = ? AND status = 1;');
-
         if(!$stmt->execute(array($uid))) {
             $stmt = null;
 
@@ -13,7 +15,7 @@ class Login extends Dbh {
             exit();
         }
 
-        //check if we get results from the database
+        // try to get the user; if we have 0 results from the database, the user will get an error message
         if($stmt->rowCount() == 0)
         {
             $stmt = null;
@@ -42,7 +44,7 @@ class Login extends Dbh {
         elseif($checkPwd == true) {
             $stmt = $this->connect()->prepare('SELECT * FROM users WHERE userName = ? AND pwd = ? LIMIT 1;');
 
-            //user can submit via userName
+            //user can submit via userName and password
             if(!$stmt->execute(array($uid, md5($pwd)))) {
                 $stmt = null;
                 header("location: ../login.php?error=stmtfailed");
@@ -60,7 +62,7 @@ class Login extends Dbh {
             $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
-            //User Login wird in logs eingetragen
+            //user login will be assigned to "logs"
             $fk_uid = $user[0]["userID"]; 
             $stmtLogs = $this->connect()->prepare('INSERT INTO logs (fk_userID, fk_logType) VALUES (:fk_userID, 2);'); 
             $stmtLogs->bindParam("fk_userID", $fk_uid, PDO::PARAM_INT);
