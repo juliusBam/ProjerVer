@@ -1,4 +1,5 @@
-<?php     
+<?php    
+// set cookies with userID, userName and userType
 if (isset($_GET["error"]) && $_GET["error"] == "none"){
     session_start();
     setcookie('userID', $_GET["userID"], time() + 3600);
