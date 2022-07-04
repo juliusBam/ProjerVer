@@ -1,6 +1,7 @@
 <?php
-    //TODO script to sort the requests
-    //TODO Add the data models to the classe
+    //#####################################################
+    //DEPRECATED FILE, WAS NOT DELETED JUST TO BE SURE
+    //#####################################################
     include_once "resultSet.class.php";
     include_once "dataModels/postIt.class.php";
     include_once "dataModels/user.class.php";

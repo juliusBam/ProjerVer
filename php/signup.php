@@ -1,3 +1,8 @@
+<?php
+    //#####################################################
+    //DEPRECATED FILE, WAS NOT DELETED JUST TO BE SURE
+    //#####################################################
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +12,7 @@
     <link href="../css/myStyle.css" rel="stylesheet">
     <link href="../css/bootstrap.css" rel="stylesheet">
     
-    <script src="javaScript/functionsSignup"></script>
+    <!--<script src="javaScript/functionsSignup"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
