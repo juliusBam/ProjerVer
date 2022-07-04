@@ -8,7 +8,7 @@
         <div class="card mb-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="../jpg/jasmin2.JPG" class="img-fluid rounded-circle" alt="image">
+                    <img src="../img/jasmin2.jpg" class="img-fluid rounded-circle" alt="image">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -19,7 +19,37 @@
                 </div>    
             </div>
         </div>
-    </div>
+
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="../img/julio.jpg" class="img-fluid rounded-circle" alt="image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Julio Alexandre Comberlato Bampi</h5>
+                        <p class="card-text">Responsible for gitHub repository and statistics</p>
+                        <p class="card-text">Contact me on: <a href="https://github.com/juliusBam">gitHub</a></p>
+                    </div>   
+                </div>    
+            </div>
+        </div>
+
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="../img/julio.jpg" class="img-fluid rounded-circle" alt="image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Lucas Hausensteiner</h5>
+                        <p class="card-text">Responsible for XXXXXX INSERT HERE</p>
+                        <p class="card-text">Contact me XXXX INSERT HERE </p>
+                    </div>   
+                </div>    
+            </div>
+        </div>
+        </div>
         <p>UID-Nr: ATU12345678</p>
         <p>FN: 123456a</p>
         <p>FB-Gericht: Wien</p>
