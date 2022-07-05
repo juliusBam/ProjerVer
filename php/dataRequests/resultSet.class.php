@@ -1,5 +1,7 @@
 <?php
-
+    //#####################################################
+    //DEPRECATED FILE, WAS NOT DELETED JUST TO BE SURE
+    //#####################################################
     include_once "dataModels/postIt.class.php";
     include_once "dataModels/user.class.php";
 

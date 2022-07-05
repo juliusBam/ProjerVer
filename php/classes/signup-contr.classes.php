@@ -1,5 +1,7 @@
 <?php
-
+    //#####################################################
+    //DEPRECATED FILE, I WAS NOT DELETED JUST TO BE SURE
+    //#####################################################
 class SignupContr extends Signup {
 
     private $uid;

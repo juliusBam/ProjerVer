@@ -1,5 +1,7 @@
 <?php
-
+    //#####################################################
+    //DEPRECATED FILE, WAS NOT DELETED JUST TO BE SURE
+    //#####################################################
 session_start();
 session_unset();
 session_destroy();

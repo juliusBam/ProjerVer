@@ -1,9 +1,5 @@
 <?php
 
-// session_start();
-// session_unset();
-// session_destroy();
-
 // delete cookies, if the user wants to logout
 setcookie('userID', "", time() - 3600);
 setcookie('userName', "", time() - 3600);

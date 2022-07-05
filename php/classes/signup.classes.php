@@ -1,5 +1,7 @@
 <?php
-
+    //#####################################################
+    //DEPRECATED FILE, WAS NOT DELETED JUST TO BE SURE
+    //#####################################################
 class Signup extends Dbh {
 
     protected function setUser($uid, $pwd, $email) {
