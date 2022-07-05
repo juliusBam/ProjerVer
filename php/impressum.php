@@ -38,13 +38,13 @@
         <div class="card mb-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="../img/julio.jpg" class="img-fluid rounded-circle" alt="image">
+                    <img src="../img/lucas.jpg" class="img-fluid rounded-circle" alt="image">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">Lucas Hausensteiner</h5>
-                        <p class="card-text">Responsible for XXXXXX INSERT HERE</p>
-                        <p class="card-text">Contact me XXXX INSERT HERE </p>
+                        <p class="card-text">Responsible for functional design and adhoc questions</p>
+                        <p class="card-text">Contact me on: <a href="https://github.com/lucasHausi">gitHub</a></p>
                     </div>   
                 </div>    
             </div>
