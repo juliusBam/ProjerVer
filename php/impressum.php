@@ -12,9 +12,9 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">Jasmin Mondre</h5>
-                        <p class="card-text">Responsible for something</p>
-                        <p class="card-text">Contact info here, if there would be any</p>
+                        <h5 class="card-title">Jasmin Mondré</h5>
+                        <p class="card-text">Responsible for login and administration</p>
+                        <p class="card-text">Contact me on: <a href="https://github.com/ZiraelMon">gitHub</a></p>
                     </div>   
                 </div>    
             </div>
@@ -50,6 +50,7 @@
             </div>
         </div>
         </div>
+        <br><br>
         <p>UID-Nr: ATU12345678</p>
         <p>FN: 123456a</p>
         <p>FB-Gericht: Wien</p>
@@ -59,7 +60,10 @@
         <p>Fax: +43 xxx xxxx xx</p>
         <p>E-Mail: email@something.something</p>
         <br>
-        <p>Verbraucher haben die Möglichkeit, Beschwerden an die <a href="http://ec.europa.eu/odOnline">Streitbeilegungsplattform der EU zu richten</a></p>
+        <p>Gemäß Verordnung über Online-Streitbeilegung in Verbraucherangelegenheiten (ODR-Verordnung) möchten wir Sie über die Online-Streitbeilegungsplattform (OS-Plattform) informieren.
+            Verbraucher haben die Möglichkeit, Beschwerden an die Online Streitbeilegungsplattform der Europäischen Kommission unter <a href="https://ec.europa.eu/consumers/odr/main/index.cfm?event=main.home2.show&lng=DE">EU Richtlinien</a> zu richten. Die dafür notwendigen Kontaktdaten finden Sie oberhalb in unserem Impressum.
+
+            Wir möchten Sie jedoch darauf hinweisen, dass wir nicht bereit oder verpflichtet sind, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</a></p>
         <p>Sie können allfällige Beschwerde auch an die oben angegebene E-Mail-Adresse richten.</p>
     </div>
 </div>
